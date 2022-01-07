@@ -7,8 +7,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 public class EnchantmentMod {
 
     public static void registerEnchantments(RegistryEvent.Register<Enchantment> event) {
-        event.getRegistry().register(WitherTouchEnchantment.INSTANCE);
-
 
     }
 

@@ -1,7 +1,0 @@
-{"parent": "minecraft:block/bedrock","textures": { "up": "examplemod:block/tntcannon_top",
- "down": "examplemod:block/tntcannon_top",
- "south": "examplemod:block/tntcannon_sides",
- "north": "examplemod:block/tntcannon_sides",
- "west": "examplemod:block/tntcannon_sides",
- "east": "examplemod:block/tntcannon_sides"
-}}
