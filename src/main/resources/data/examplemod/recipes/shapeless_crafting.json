@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:coal"
+    },
+    {
+      "item": "minecraft:torch"
+    }
+  ],
+  "result":
+  {
+    "item": "examplemod:tntcannon",
+    "count": 1
+  }
+}

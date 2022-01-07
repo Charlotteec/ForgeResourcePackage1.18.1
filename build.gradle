@@ -1,0 +1,392 @@
+buildscript {
+    repositories {
+        // These repositories are only for Gradle plugins, put any other repositories in the repository block further below
+        maven { url = 'https://maven.minecraftforge.net' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+    }
+}
+apply plugin: 'net.minecraftforge.gradle'
+// Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
+apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
+
+version = '1.0'
+group = 'com.yourname.modid' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = 'modid'
+
+// Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
+minecraft {
+    // The mappings can be changed at any time and must be in the following format.
+    // Channel:   Version:
+    // snapshot   YYYYMMDD   Snapshot are built nightly.
+    // stable     #          Stables are built at the discretion of the MCP team.
+    // official   MCVersion  Official field/method names from Mojang mapping files
+    //
+    // You must be aware of the Mojang license when using the 'official' mappings.
+    // See more information here: https://github.com/MinecraftForge/MCPConfig/blob/master/Mojang.md
+    //
+    // Use non-default mappings at your own risk. They may not always work.
+    // Simply re-run your setup task after changing the mappings to update your workspace.
+    mappings channel: 'official', version: '1.18.1'
+
+    // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg') // Currently, this location cannot be changed from the default.
+
+    // Default run configurations.
+    // These can be tweaked, removed, or duplicated as needed.
+    runs {
+        client {
+            workingDirectory project.file('run')
+
+            // Recommended logging data for a userdev environment
+            // The markers can be added/remove as needed separated by commas.
+            // "SCAN": For mods scan.
+            // "REGISTRIES": For firing of registry events.
+            // "REGISTRYDUMP": For getting the contents of all registries.
+            property 'forge.logging.markers', 'REGISTRIES'
+
+            // Recommended logging level for the console
+            // You can set various levels here.
+            // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
+            property 'forge.logging.console.level', 'debug'
+
+            mods {
+                examplemod {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+            workingDirectory project.file('run')
+
+            // Recommended logging data for a userdev environment
+            // The markers can be added/remove as needed separated by commas.
+            // "SCAN": For mods scan.
+            // "REGISTRIES": For firing of registry events.
+            // "REGISTRYDUMP": For getting the contents of all registries.
+            property 'forge.logging.markers', 'REGISTRIES'
+
+            // Recommended logging level for the console
+            // You can set various levels here.
+            // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
+            property 'forge.logging.console.level', 'debug'
+
+            mods {
+                examplemod {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        data {
+            workingDirectory project.file('run')
+
+            // Recommended logging data for a userdev environment
+            // The markers can be added/remove as needed separated by commas.
+            // "SCAN": For mods scan.
+            // "REGISTRIES": For firing of registry events.
+            // "REGISTRYDUMP": For getting the contents of all registries.
+            property 'forge.logging.markers', 'REGISTRIES'
+
+            // Recommended logging level for the console
+            // You can set various levels here.
+            // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
+            property 'forge.logging.console.level', 'debug'
+
+            // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
+            args '--mod', 'examplemod', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+
+            mods {
+                examplemod {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+// Include resources generated by data generators.
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+repositories {
+    // Put repositories for dependencies here
+    // ForgeGradle automatically adds the Forge maven and Maven Central for you
+
+    // If you have mod jar dependencies in ./libs, you can declare them as a repository like so:
+    // flatDir {
+    //     dir 'libs'
+    // }
+}
+
+dependencies {
+    // Specify the version of Minecraft to use. If this is any group other than 'net.minecraft', it is assumed
+    // that the dep is a ForgeGradle 'patcher' dependency, and its patches will be applied.
+    // The userdev artifact is a special name and will get all sorts of transformations applied to it.
+    minecraft 'net.minecraftforge:forge:1.18.1-39.0.10'
+
+    // Real mod deobf dependency examples - these get remapped to your current mappings
+    // compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency
+    // runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}") // Adds the full JEI mod as a runtime dependency
+    // implementation fg.deobf("com.tterrag.registrate:Registrate:MC${mc_version}-${registrate_version}") // Adds registrate as a dependency
+
+    // Examples using mod jars from ./libs
+    // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
+
+    // For more info...
+    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
+    // http://www.gradle.org/docs/current/userguide/dependency_management.html
+}
+
+// Example for how to get properties into the manifest for reading at runtime.
+jar {
+    manifest {
+        attributes([
+                "Specification-Title"     : "examplemod",
+                "Specification-Vendor"    : "examplemodsareus",
+                "Specification-Version"   : "1", // We are version 1 of ourselves
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : project.jar.archiveVersion,
+                "Implementation-Vendor"   : "examplemodsareus",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+}
+
+// Example configuration to allow publishing using the maven-publish plugin
+// This is the preferred method to reobfuscate your jar file
+jar.finalizedBy('reobfJar')
+// However if you are in a multi-project build, dev time needs unobfed jar files, so you can delay the obfuscation until publishing by doing
+// publish.dependsOn('reobfJar')
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
+        }
+    }
+    repositories {
+        maven {
+            url "file://${project.projectDir}/mcmodsrepo"
+        }
+    }
+}
+
+
+class ItemJSONTask extends DefaultTask {
+    private String MODID = 'examplemod'
+
+    def writeToFile(name, type){
+        String s = ""
+        if(type == ("egg")){
+            name = name + "_egg"
+            s = "{\"parent\": \"minecraft:item/template_spawn_egg\"}"
+//            System.out.println(s)
+        }else{
+            s = "{\"parent\": \"item/" + type.toLowerCase() + "\",\"textures\": {\"layer0\": \"" + MODID + ":item/" + name + "\"}}"
+        }
+
+        // create the folders if it does not exist.(otherwise it will throw exception)
+        File extraFolder = new File( "${project.projectDir}/src/main/resources/assets/"+MODID+"/models/item")
+        if( !extraFolder.exists() ) {
+            extraFolder.mkdirs()
+        }
+        // create the file and write text to it.
+        new File("${project.projectDir}/src/main/resources/assets/"+MODID+"/models/item/"+name+".json").text = s
+    }
+
+    @TaskAction
+    def greet() {
+        String[] listy
+        new File("${project.projectDir}/src/main/resources/generate/items").eachLine { line ->
+            listy = line.split(" ")
+            writeToFile(listy[1], listy[0])
+        }
+    }
+}
+
+task generateItemJSONs(type: ItemJSONTask){
+    group = 'forgegradle runs'
+    description = 'A gradle task to generate all item jsons from the items file. Use generated for regular items, handheld for tools, and egg for entity egg jsons.'
+}
+
+class BlockJSONTask extends DefaultTask {
+    private String MODID = 'examplemod'
+
+    def blockstatesJSON(name){
+
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("{\"variants\": {\"\": {\"model\": \"" + MODID + ":block/" + name + "\"}}}")
+
+        String s = builder.toString()
+
+        // create the folders if it does not exist.(otherwise it will throw exception)
+        File extraFolder = new File( "${project.projectDir}/src/main/resources/assets/"+MODID+"/blockstates")
+        if( !extraFolder.exists() ) {
+            extraFolder.mkdirs()
+        }
+        // create the file and write text to it.
+        new File("${project.projectDir}/src/main/resources/assets/"+MODID+"/blockstates/"+name+".json").text = s
+    }
+
+    def blockJSONMulti(name){
+
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("{");
+        builder.append("\"parent\": \"minecraft:block/" + "bedrock" + "\",");
+
+        builder.append("\"textures\": {");
+        // What this does is that it generates a json that has different textures for each side, but only uses two
+        // textures. Obviously this can be extended to have more than just 2 textures, and in theory you could make
+        // each side of the block unique. For this case, the textures on the top and bottom must be called "[block_name]_top"
+        //and the texture on the sides "[block_name]_sides"
+        builder.append(" \"up\": \"" + MODID + ":block/" + name + "_up" + "\",\n");
+        builder.append(" \"down\": \"" + MODID + ":block/" + name + "_down" + "\",\n");
+        builder.append(" \"south\": \"" + MODID + ":block/" + name + "_south" + "\",\n");
+        builder.append(" \"north\": \"" + MODID + ":block/" + name + "_north" + "\",\n");
+        builder.append(" \"west\": \"" + MODID + ":block/" + name + "_west" + "\",\n");
+        builder.append(" \"east\": \"" + MODID + ":block/" + name + "_east" + "\"\n");
+        builder.append("}");
+        builder.append("}");
+
+        String s = builder.toString()
+
+        // create the folders if it does not exist.(otherwise it will throw exception)
+        File extraFolder = new File( "${project.projectDir}/src/main/resources/assets/"+MODID+"/models/block")
+        if( !extraFolder.exists() ) {
+            extraFolder.mkdirs()
+        }
+        // create the file and write text to it.
+        new File("${project.projectDir}/src/main/resources/assets/"+MODID+"/models/block/"+name+".json").text = s
+    }
+    def blockJSON(name){
+
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("{");
+        builder.append("\"parent\": \"minecraft:block/" + "cube_all" + "\",");
+
+        builder.append("\"textures\": {");
+        // TODO: Need to figure out how to apply textures properly for various
+        // types
+        builder.append(" \"all\": \"" + MODID + ":block/" + name + "\"");
+        builder.append("}");
+        builder.append("}");
+
+        String s = builder.toString()
+
+        // create the folders if it does not exist.(otherwise it will throw exception)
+        File extraFolder = new File( "${project.projectDir}/src/main/resources/assets/"+MODID+"/models/block")
+        if( !extraFolder.exists() ) {
+            extraFolder.mkdirs()
+        }
+        // create the file and write text to it.
+        new File("${project.projectDir}/src/main/resources/assets/"+MODID+"/models/block/"+name+".json").text = s
+    }
+    def itemJSON(name){
+
+        String s = "{\"parent\": \"" + MODID + ":block/" + name + "\"}"
+
+        // create the folders if it does not exist.(otherwise it will throw exception)
+        File extraFolder = new File( "${project.projectDir}/src/main/resources/assets/"+MODID+"/models/item")
+        if( !extraFolder.exists() ) {
+            extraFolder.mkdirs()
+        }
+        // create the file and write text to it.
+        new File("${project.projectDir}/src/main/resources/assets/"+MODID+"/models/item/"+name+".json").text = s
+    }
+
+
+    @TaskAction
+    def greet() {
+        String[] listy
+        new File("${project.projectDir}/src/main/resources/generate/blocks").eachLine { line ->
+            listy = line.split(" ")
+            if(listy[0].equals("multi")){
+                blockJSONMulti(listy[1])
+            }
+            if(listy[0].equals("same")){
+                blockJSON(listy[1])
+            }
+            blockstatesJSON(listy[1])
+            itemJSON(listy[1])
+        }
+        // println greeting
+    }
+}
+
+task generateBlockJSONs(type: BlockJSONTask){
+    group = 'forgegradle runs'
+    description = 'A gradle task to generate all block jsons in the blocks file. Choose same for all sides to be the same and multi to decide each side of the block (use _up, _down, _south, _north, _east, _west for texture names).'
+}
+
+class BlockstateGenTask extends DefaultTask {
+    private String MODID = 'examplemod'
+
+    def writeToFile(name, type) {
+        if(type == "block") {
+            String s = "{\n" +
+                    "  \"type\": \"minecraft:block\",\n" +
+                    "  \"pools\": [\n" +
+                    "    {\n" +
+                    "      \"rolls\": 1.0,\n" +
+                    "      \"bonus_rolls\": 0.0,\n" +
+                    "      \"entries\": [\n" +
+                    "        {\n" +
+                    "          \"type\": \"minecraft:item\",\n" +
+                    "          \"name\": \"" + MODID + ":" + name + "\"\n" +
+                    "        }\n" +
+                    "      ],\n" +
+                    "      \"conditions\": [\n" +
+                    "        {\n" +
+                    "          \"condition\": \"minecraft:survives_explosion\"\n" +
+                    "        }\n" +
+                    "      ]\n" +
+                    "    }\n" +
+                    "  ]\n" +
+                    "}"
+
+            // create the folders if it does not exist.(otherwise it will throw exception)
+            File extraFolder = new File("${project.projectDir}/src/main/resources/data/" + MODID + "/loot_tables/blocks")
+            if (!extraFolder.exists()) {
+                extraFolder.mkdirs()
+            }
+            // create the file and write text to it.
+            new File("${project.projectDir}/src/main/resources/data/" + MODID + "/loot_tables/blocks/" + name + ".json").text = s
+        }else if(type == "entity") {
+
+            String s = "entity loot table code"
+
+            // create the folders if it does not exist.(otherwise it will throw exception)
+            File extraFolder = new File("${project.projectDir}/src/main/resources/data/" + MODID + "/loot_tables/entity")
+            if (!extraFolder.exists()) {
+                extraFolder.mkdirs()
+            }
+            // create the file and write text to it.
+            new File("${project.projectDir}/src/main/resources/data/" + MODID + "/loot_tables/entity/" + name + ".json").text = s
+
+
+        }
+    }
+    @TaskAction
+    def greet() {
+        String[] listy
+        new File("${project.projectDir}/src/main/resources/generate/loot").eachLine { line ->
+            listy = line.split(" ")
+            writeToFile(listy[1], listy[0])
+        }
+    }
+
+}
+task generateLootTables(type: BlockstateGenTask) {
+    group = 'forgegradle runs'
+    description = 'A gradle task to generate loot tables for blocks to drop themselves.'
+}
+
