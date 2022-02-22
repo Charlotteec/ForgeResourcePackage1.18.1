@@ -12,6 +12,7 @@
   "item.examplemod.explosionitem": "Bomb",
   "item.examplemod.yummyfood": "Yummy Food",
   "item.examplemod.lattechicken_egg": "Latte Chicken Egg",
+  "item.examplemod.evilrabbit_egg": "Evil Rabbit Spawn Egg",
   "item.examplemod.grumboboy_egg": "Grumbo Boy Egg",
   "item.examplemod.custom_helm": "Custom Helm",
   "item.examplemod.custom_chest": "Custom Chest",
@@ -25,5 +26,6 @@
   "block.examplemod.rubber": "Rubber Block",
   "enchantment.examplemod.wither_touch": "Wither Touch Enchantment",
   "entity.examplemod.lattechicken": "Latte Chicken",
+  "entity.examplemod.evilrabbit": "Evil Rabbit",
   "biome.examplemod.basic_tester": "Basic Tester Biome"
 }

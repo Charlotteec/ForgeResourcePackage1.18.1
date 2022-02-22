@@ -17,6 +17,7 @@ public class EntityMod {
     public static void registerEntities(final RegistryEvent.Register<EntityType<?>> event){
         event.getRegistry().register(GrumboBoy.TYPE);
         event.getRegistry().register(LatteChicken.TYPE);
+        event.getRegistry().register(EvilRabbit.TYPE);
 
         event.getRegistry().register(ExplosionProjectile.TYPE);
         event.getRegistry().register(LaunchProjectile.TYPE);
@@ -25,12 +26,14 @@ public class EntityMod {
     public static void registerEntityEggs(final RegistryEvent.Register<Item> event) {
         event.getRegistry().register(GrumboBoy.EGG);
         event.getRegistry().register(LatteChicken.EGG);
+        event.getRegistry().register(EvilRabbit.EGG);
 
     }
     @SubscribeEvent
     public static void entityRenderers(final EntityRenderersEvent.RegisterRenderers event){
         event.registerEntityRenderer(GrumboBoy.TYPE, GrumboBoyRenderFactory.INSTANCE);
         event.registerEntityRenderer(LatteChicken.TYPE, LatteChickenRenderFactory.INSTANCE);
+        event.registerEntityRenderer(EvilRabbit.TYPE, EvilRabbitRenderFactory.INSTANCE);
 
         event.registerEntityRenderer(ExplosionProjectile.TYPE, (m) -> { return new ThrownItemRenderer<>(m, 1.0f, true);});
         event.registerEntityRenderer(LaunchProjectile.TYPE, (m) -> { return new ThrownItemRenderer<>(m, 1.0f, true);});
@@ -43,6 +46,7 @@ public class EntityMod {
     public static void onAttributeCreate(EntityAttributeCreationEvent event) {
         event.put(GrumboBoy.TYPE, GrumboBoy.createAttributes().build());
         event.put(LatteChicken.TYPE, LatteChicken.createAttributes().build());
+        event.put(EvilRabbit.TYPE, EvilRabbit.createAttributes().build());
 
     }
 
