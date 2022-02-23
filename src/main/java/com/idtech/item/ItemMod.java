@@ -44,6 +44,7 @@ public class ItemMod {
         event.getRegistry().register(GelSwordItem.INSTANCE);
         event.getRegistry().register(GelAxeItem.INSTANCE);
         event.getRegistry().register(CustomWeapon.INSTANCE);
+        event.getRegistry().register(ZooSwordItem.INSTANCE);
 
 
         // FOOD
