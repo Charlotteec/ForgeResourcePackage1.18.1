@@ -38,6 +38,7 @@ public class ItemMod {
         // ITEMS
         event.getRegistry().register(LightningHammerItem.INSTANCE);
         event.getRegistry().register(TeleportRodItem.INSTANCE);
+        event.getRegistry().register(FireballWandItem.INSTANCE);
 
         // TOOLS
         event.getRegistry().register(GelPickaxeItem.INSTANCE);
@@ -45,6 +46,8 @@ public class ItemMod {
         event.getRegistry().register(GelAxeItem.INSTANCE);
         event.getRegistry().register(CustomWeapon.INSTANCE);
         event.getRegistry().register(ZooSwordItem.INSTANCE);
+        event.getRegistry().register(Big3DSword.INSTANCE);
+        event.getRegistry().register(MaceItem.INSTANCE);
 
 
         // FOOD

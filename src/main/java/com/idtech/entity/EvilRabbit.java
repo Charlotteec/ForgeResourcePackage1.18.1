@@ -1,6 +1,9 @@
 package com.idtech.entity;
 
 import com.idtech.BaseMod;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -46,5 +49,20 @@ public class EvilRabbit extends Rabbit
         this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+    }
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return SoundEvents.BAT_AMBIENT;
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource p_29715_) {
+        return SoundEvents.CREEPER_HURT;
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return SoundEvents.BAT_DEATH;
     }
 }
