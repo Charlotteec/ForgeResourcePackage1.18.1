@@ -1,6 +1,7 @@
 package com.idtech.entity;
 
 import com.idtech.BaseMod;
+import com.idtech.SoundHandler;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
@@ -20,18 +21,18 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 
-public class EvilRabbit extends Rabbit
-{
+public class EvilRabbit extends Rabbit {
     //TYPE
     public static EntityType<EvilRabbit> TYPE = (EntityType<EvilRabbit>)
             EntityType.Builder.of(EvilRabbit::new, MobCategory.MONSTER).sized(0.6F, 1.95F).
                     clientTrackingRange(8).build("evilrabbit").setRegistryName(BaseMod.MODID, "evilrabbit");
     //EGG
-    public static Item EGG = EntityUtils.buildEntitySpawnEgg(TYPE, 0xfef9f8 , 0x383737);
+    public static Item EGG = EntityUtils.buildEntitySpawnEgg(TYPE, 0xfef9f8, 0x383737);
 
-    public EvilRabbit(EntityType<? extends Rabbit> p_29656_, Level p_29657_) {
-        super(p_29656_, p_29657_);
+    public EvilRabbit(EntityType<? extends Rabbit> entityIn, Level levelIn) {
+        super(entityIn, levelIn);
     }
+
     
     public static AttributeSupplier.Builder createAttributes()
     {
@@ -53,7 +54,7 @@ public class EvilRabbit extends Rabbit
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.BAT_AMBIENT;
+        return SoundHandler.mySound;
     }
 
     @Override
