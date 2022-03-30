@@ -77,7 +77,7 @@ public class BaseMod {
         // Do any mod setup steps here. Occurs after all registry events.
         // Put biome manager registry stuff here.
         BaseMod.LOGGER.info("Mod Setup Step");
-//        WorldMod.setupBiomes();
+        WorldMod.setupBiomes();
        // TierSortingRegistry.registerTier(ItemMod.GEL_TIER, new ResourceLocation(MODID, "gelore"), List.of(Tiers.NETHERITE), List.of());
 
         BaseMod.LOGGER.info("Command registration here hopefully.");

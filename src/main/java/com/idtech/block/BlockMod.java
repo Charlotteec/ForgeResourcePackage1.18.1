@@ -33,8 +33,8 @@ public class BlockMod {
     public static final Item GEL_ORE_ITEM = BlockUtils.createBlockItem(GEL_ORE_BLOCK, ModTab.INSTANCE);
 
     public static final Block FIRE_CRYSTAL_BLOCK =
-            new OreBlock(Block.Properties.of(Material.STONE)
-                    .strength(0.5F, 0.6F))
+            new OreBlock(Block.Properties.of(Material.STONE).requiresCorrectToolForDrops()
+                    .strength(2F, 2F))
                     .setRegistryName(BaseMod.MODID, "firecrystalblock");
     public static final Item FIRE_CRYSTAL_BLOCK_ITEM = BlockUtils.createBlockItem(FIRE_CRYSTAL_BLOCK, ModTab.INSTANCE);
 
@@ -51,7 +51,6 @@ public class BlockMod {
         event.getRegistry().register(CreepingMoldBlock.ITEM);
         event.getRegistry().register(LatteBlock.ITEM);
         event.getRegistry().register(LatteMidBlock.ITEM);
-
     }
 
     @SubscribeEvent

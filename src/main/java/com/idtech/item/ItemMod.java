@@ -69,6 +69,11 @@ public class ItemMod {
         event.getRegistry().register(CustomArmorItem.CUSTOM_LEGS);
         event.getRegistry().register(CustomArmorItem.CUSTOM_BOOTS);
 
+        event.getRegistry().register(FireCrystalArmor.FIRECRYSTAL_HELM);
+        event.getRegistry().register(FireCrystalArmor.FIRECRYSTAL_CHEST);
+        event.getRegistry().register(FireCrystalArmor.FIRECRYSTAL_LEGS);
+        event.getRegistry().register(FireCrystalArmor.FIRECRYSTAL_BOOTS);
+
         //PROJECTILES
         event.getRegistry().register(BombArrowItem.INSTANCE);
         event.getRegistry().register(ExplosionProjectileItem.INSTANCE);
