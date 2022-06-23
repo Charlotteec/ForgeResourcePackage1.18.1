@@ -362,15 +362,28 @@ class BlockstateGenTask extends DefaultTask {
             new File("${project.projectDir}/src/main/resources/data/" + MODID + "/loot_tables/blocks/" + name + ".json").text = s
         }else if(type == "entity") {
 
-            String s = "entity loot table code"
+            String s = "{\n" +
+                    "  \"type\": \"minecraft:entity\",\n" +
+                    "  \"pools\": [\n" +
+                    "    {\n" +
+                    "      \"rolls\": 1,\n" +
+                    "      \"entries\": [\n" +
+                    "        {\n" +
+                    "          \"type\": \"minecraft:item\",\n" +
+                    "          \"name\": \"minecraft:rotten_flesh\"\n" +
+                    "        }\n" +
+                    "      ]\n" +
+                    "    }\n" +
+                    "  ]\n" +
+                    "}"
 
             // create the folders if it does not exist.(otherwise it will throw exception)
-            File extraFolder = new File("${project.projectDir}/src/main/resources/data/" + MODID + "/loot_tables/entity")
+            File extraFolder = new File("${project.projectDir}/src/main/resources/data/" + MODID + "/loot_tables/entities")
             if (!extraFolder.exists()) {
                 extraFolder.mkdirs()
             }
             // create the file and write text to it.
-            new File("${project.projectDir}/src/main/resources/data/" + MODID + "/loot_tables/entity/" + name + ".json").text = s
+            new File("${project.projectDir}/src/main/resources/data/" + MODID + "/loot_tables/entities/" + name + ".json").text = s
 
 
         }
@@ -389,4 +402,3 @@ task generateLootTables(type: BlockstateGenTask) {
     group = 'forgegradle runs'
     description = 'A gradle task to generate loot tables for blocks to drop themselves.'
 }
-
