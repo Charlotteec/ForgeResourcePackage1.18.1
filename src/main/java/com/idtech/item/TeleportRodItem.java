@@ -1,6 +1,6 @@
 package com.idtech.item;
 
-import com.idtech.ModTab;
+import com.idtech.BaseMod;
 import com.idtech.Utils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
@@ -15,8 +15,8 @@ import net.minecraft.world.level.Level;
 public class TeleportRodItem extends Item {
 
     //static instance for registration
-    private static Properties properties = new Properties().tab(ModTab.INSTANCE);
-    public static Item INSTANCE = new TeleportRodItem(properties).setRegistryName("teleportrod");
+    private static Properties properties = new Properties().tab(CreativeModeTab.TAB_MISC);
+    public static Item INSTANCE = new TeleportRodItem(properties).setRegistryName(BaseMod.MODID, "teleportrod");
 
     //constructor
     public TeleportRodItem(Properties properties) {

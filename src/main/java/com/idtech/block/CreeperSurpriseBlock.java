@@ -25,7 +25,7 @@ public class CreeperSurpriseBlock extends Block{
 
     private static Properties properties = Properties.of(Material.STONE);
     public static Block INSTANCE = new CreeperSurpriseBlock(properties).setRegistryName(BaseMod.MODID, "creepersurprise");
-    public static Item ITEM = BlockUtils.createBlockItem(INSTANCE, ModTab.INSTANCE);
+    public static Item ITEM = BlockUtils.createBlockItem(INSTANCE, CreativeModeTab.TAB_MISC);
 
     //constructor
     public CreeperSurpriseBlock(Properties properties) {

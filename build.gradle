@@ -360,6 +360,7 @@ class BlockstateGenTask extends DefaultTask {
             }
             // create the file and write text to it.
             new File("${project.projectDir}/src/main/resources/data/" + MODID + "/loot_tables/blocks/" + name + ".json").text = s
+
         }else if(type == "entity") {
 
             String s = "{\n" +
@@ -378,10 +379,10 @@ class BlockstateGenTask extends DefaultTask {
                     "}"
 
             // create the folders if it does not exist.(otherwise it will throw exception)
-            File extraFolder = new File("${project.projectDir}/src/main/resources/data/" + MODID + "/loot_tables/entities")
+            File extraFolder = new File("${project.projectDir}/src/main/resources/data/" + MODID + "/loot_tables/entities/")
             if (!extraFolder.exists()) {
                 extraFolder.mkdirs()
-            }
+               }
             // create the file and write text to it.
             new File("${project.projectDir}/src/main/resources/data/" + MODID + "/loot_tables/entities/" + name + ".json").text = s
 
