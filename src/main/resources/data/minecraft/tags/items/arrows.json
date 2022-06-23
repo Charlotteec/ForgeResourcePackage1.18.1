@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "examplemod:bombarrow"
+    "examplemod:bombarrow",
+    "examplemod:firecrystalarrow"
   ]
 }

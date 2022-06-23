@@ -14,12 +14,13 @@ import net.minecraft.world.item.enchantment.EnchantmentCategory;
 public class WitherTouchEnchantment extends Enchantment {
 
     // Set up Enchantment Instance
-    public static Enchantment INSTANCE = new WitherTouchEnchantment(Rarity.UNCOMMON, EquipmentSlot.MAINHAND).setRegistryName("wither_touch");;
+    public static Enchantment INSTANCE = new WitherTouchEnchantment(Rarity.UNCOMMON, EquipmentSlot.MAINHAND).setRegistryName("wither_touch");
 
     // Constructor
     protected WitherTouchEnchantment(Rarity rarityIn, EquipmentSlot... slots) {
         super(rarityIn, EnchantmentCategory.WEAPON, slots);
     }
+
 
     /**
      * Returns the minimal value of enchantability needed on the enchantment level passed.
@@ -54,7 +55,6 @@ public class WitherTouchEnchantment extends Enchantment {
             livingentity.addEffect(new MobEffectInstance(MobEffects.WITHER, i, 1));
 
         }
-
     }
 
 

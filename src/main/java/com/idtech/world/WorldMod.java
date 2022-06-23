@@ -62,12 +62,9 @@ public class WorldMod {
     }
 
 
-    public static void setupBiomes(){
-////add the biome to the biome dictionary
-//        //BiomeDictionary.addTypes(BASIC_TESTER, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.OVERWORLD);
-//        // Adding a biome to the manager and making sure it spawns regularly (weight is how likely it is to show up)
-//        //BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(BASIC_TESTER, 9000));
-        BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(STORMFIELD_PLAINS, 9000));
+    public static void setupBiomes()
+    {
+        BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(STORMFIELD_PLAINS, 9999));
     }
 
 
@@ -81,10 +78,9 @@ public class WorldMod {
         FeatureUtils.register("fire_crystal_feature", OVERWORLD_FIRE_CRYSTAL_FEATURE);
         PlacementUtils.register("fire_crystal_feature", OVERWORLD_FIRE_CRYSTAL_PLACED_FEATURE);
 
-        biomeGen.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, OVERWORLD_FIRE_CRYSTAL_PLACED_FEATURE);
-        if(event.getCategory().equals(Biome.BiomeCategory.PLAINS))
+        if(biomeCategory.equals(STORMFIELD_PLAINS))
         {
-            builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EvilRabbit.TYPE, 100, 2, 4));
+            biomeGen.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, OVERWORLD_FIRE_CRYSTAL_PLACED_FEATURE);
         }
     }
 }

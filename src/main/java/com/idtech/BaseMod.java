@@ -20,6 +20,7 @@ import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.TierSortingRegistry;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
@@ -40,6 +41,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Collectors;
@@ -150,7 +152,6 @@ public class BaseMod {
 
         }
 
-
         /**
          * Registers entities during mod setup
          *
@@ -175,7 +176,6 @@ public class BaseMod {
             WorldMod.registerBiomes(event);
 
         }
-
 
         @SubscribeEvent
         public static void entityRenderers(final EntityRenderersEvent.RegisterRenderers event){

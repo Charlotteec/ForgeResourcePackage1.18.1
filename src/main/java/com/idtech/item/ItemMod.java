@@ -6,10 +6,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.PickaxeItem;
-import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.ForgeTier;
@@ -59,6 +56,7 @@ public class ItemMod {
         event.getRegistry().register(ZooSwordItem.INSTANCE);
         event.getRegistry().register(Big3DSword.INSTANCE);
         event.getRegistry().register(MaceItem.INSTANCE);
+        event.getRegistry().register(SpikedShieldItem.INSTANCE);
 
         // FOOD
         event.getRegistry().register(yummyFoodItem);
@@ -76,9 +74,9 @@ public class ItemMod {
 
         //PROJECTILES
         event.getRegistry().register(BombArrowItem.INSTANCE);
+        event.getRegistry().register(FireCrystalArrowItem.INSTANCE);
         event.getRegistry().register(ExplosionProjectileItem.INSTANCE);
         event.getRegistry().register(LaunchProjectileItem.INSTANCE);
-
 
     }
 }

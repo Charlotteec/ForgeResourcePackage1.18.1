@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {  "rolls": 2,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:rotten_flesh"
+        }
+      ]
+    }
+  ]
+}
