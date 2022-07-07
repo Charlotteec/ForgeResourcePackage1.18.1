@@ -78,7 +78,7 @@ public class WorldMod {
         FeatureUtils.register("fire_crystal_feature", OVERWORLD_FIRE_CRYSTAL_FEATURE);
         PlacementUtils.register("fire_crystal_feature", OVERWORLD_FIRE_CRYSTAL_PLACED_FEATURE);
 
-        if(biomeCategory.equals(STORMFIELD_PLAINS))
+        if(event.getName().getPath().equals(STORMFIELD_PLAINS.location().getPath()))
         {
             biomeGen.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, OVERWORLD_FIRE_CRYSTAL_PLACED_FEATURE);
         }
