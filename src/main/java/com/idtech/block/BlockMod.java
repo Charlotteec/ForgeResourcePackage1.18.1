@@ -32,6 +32,11 @@ public class BlockMod {
                     .setRegistryName(BaseMod.MODID, "geloreblock");
     public static final Item GEL_ORE_ITEM = BlockUtils.createBlockItem(GEL_ORE_BLOCK, ModTab.INSTANCE);
 
+    public static final Block END_ORE_BLOCK =
+            new OreBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F))
+                    .setRegistryName(BaseMod.MODID, "endoreblock");
+    public static final Item END_ORE_BLOCK_ITEM = BlockUtils.createBlockItem(END_ORE_BLOCK, ModTab.INSTANCE);
+
     public static final Block FIRE_CRYSTAL_BLOCK =
             new OreBlock(Block.Properties.of(Material.STONE).requiresCorrectToolForDrops()
                     .strength(2F, 2F))
@@ -44,6 +49,7 @@ public class BlockMod {
         event.getRegistry().register(CASTLE_WALL_ITEM);
         event.getRegistry().register(GEL_ORE_ITEM);
         event.getRegistry().register(FIRE_CRYSTAL_BLOCK_ITEM);
+        event.getRegistry().register(END_ORE_BLOCK_ITEM);
 
         event.getRegistry().register(TNTCannonBlock.ITEM);
         event.getRegistry().register(RubberBlock.ITEM);
@@ -59,6 +65,7 @@ public class BlockMod {
         event.getRegistry().register(CASTLE_WALL);
         event.getRegistry().register(GEL_ORE_BLOCK);
         event.getRegistry().register(FIRE_CRYSTAL_BLOCK);
+        event.getRegistry().register(END_ORE_BLOCK);
 
         event.getRegistry().register(TNTCannonBlock.INSTANCE);
         event.getRegistry().register(RubberBlock.INSTANCE);

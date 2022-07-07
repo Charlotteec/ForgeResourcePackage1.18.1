@@ -1,1 +1,1 @@
-{"parent": "item/generate","textures": {"layer0": "examplemod:item/endore"}}
+{"parent": "item/generated","textures": {"layer0": "examplemod:item/endore"}}

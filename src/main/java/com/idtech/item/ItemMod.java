@@ -19,6 +19,7 @@ public class ItemMod {
 
     //BASIC ITEMS
     public static final Item STRUCTURE_GEL = ItemUtils.buildBasicItem("structuregel", ModTab.INSTANCE);
+    public static final Item END_ORE = ItemUtils.buildBasicItem("endore", ModTab.INSTANCE);
     public static final Item GEL_ORE = ItemUtils.buildBasicItem("gelore", ModTab.INSTANCE);
     public static final Item FIRE_CRYSTAL = ItemUtils.buildBasicItem("firecrystal", CreativeModeTab.TAB_MISC);
 
@@ -34,6 +35,7 @@ public class ItemMod {
 
         //BASIC ITEMS
         event.getRegistry().register(STRUCTURE_GEL);
+        event.getRegistry().register(END_ORE);
         event.getRegistry().register(GEL_ORE);
         event.getRegistry().register(FIRE_CRYSTAL);
 

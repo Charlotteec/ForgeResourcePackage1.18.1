@@ -12,6 +12,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -19,6 +20,8 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.OreFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.placement.*;
+import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
+import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
@@ -35,6 +38,9 @@ import java.util.function.Supplier;
 @Mod.EventBusSubscriber(modid = BaseMod.MODID)
 public class WorldMod {
 
+    // Needed to create "replaceables" for ore feature.
+    public static final RuleTest ENDSTONE = new BlockMatchTest(Blocks.END_STONE);
+
     // Testing Ore Generation (https://fabricmc.net/wiki/tutorial:ores)
     private static ConfiguredFeature<?, ?> OVERWORLD_FIRE_CRYSTAL_FEATURE = new ConfiguredFeature(
             Feature.ORE, new OreConfiguration(
@@ -46,6 +52,20 @@ public class WorldMod {
             List.of(
                     CountPlacement.of(20), // Number of veins per chunk
                     InSquarePlacement.spread(), //Horizontal spreading
+                    HeightRangePlacement.triangle(VerticalAnchor.absolute(-80), VerticalAnchor.absolute(80)),
+                    BiomeFilter.biome()
+            ));
+
+    public static ConfiguredFeature<?, ?> END_END_ORE_FEATURE = new ConfiguredFeature(
+            Feature.ORE, new OreConfiguration(
+            ENDSTONE,
+            BlockMod.END_ORE_BLOCK.defaultBlockState(),
+            9));
+
+    public static PlacedFeature END_END_ORE_PLACED_FEATURE = END_END_ORE_FEATURE.placed(
+            List.of(
+                    CountPlacement.of(10),
+                    InSquarePlacement.spread(),
                     HeightRangePlacement.triangle(VerticalAnchor.absolute(-80), VerticalAnchor.absolute(80)),
                     BiomeFilter.biome()
             ));
@@ -78,9 +98,22 @@ public class WorldMod {
         FeatureUtils.register("fire_crystal_feature", OVERWORLD_FIRE_CRYSTAL_FEATURE);
         PlacementUtils.register("fire_crystal_feature", OVERWORLD_FIRE_CRYSTAL_PLACED_FEATURE);
 
+        FeatureUtils.register("end_ore_feature", END_END_ORE_FEATURE);
+        PlacementUtils.register("end_ore_feature", END_END_ORE_PLACED_FEATURE);
+
         if(event.getName().getPath().equals(STORMFIELD_PLAINS.location().getPath()))
         {
             biomeGen.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, OVERWORLD_FIRE_CRYSTAL_PLACED_FEATURE);
+        }
+        else if (event.getCategory() == Biome.BiomeCategory.THEEND)
+        {
+            // Spawn end ore
+            biomeGen.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, END_END_ORE_PLACED_FEATURE);
+        }
+
+        if(event.getCategory().equals(Biome.BiomeCategory.BEACH))
+        {
+
         }
     }
 }
