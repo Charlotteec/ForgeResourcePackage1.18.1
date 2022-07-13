@@ -1,7 +1,7 @@
 {
-	"variants": {
-		"": {
-			"model": "examplemod:block/castlewall"
-		}
-	}
+  "variants": {
+    "": {
+      "model": "examplemod:block/castlewall"
+    }
+  }
 }
