@@ -1,13 +1,11 @@
 package com.idtech.item;
 
 import com.idtech.ModTab;
-import net.minecraft.client.renderer.EffectInstance;
+
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.ForgeTier;
 import net.minecraftforge.event.RegistryEvent;
@@ -73,6 +71,8 @@ public class ItemMod {
         event.getRegistry().register(FireCrystalArmor.FIRECRYSTAL_CHEST);
         event.getRegistry().register(FireCrystalArmor.FIRECRYSTAL_LEGS);
         event.getRegistry().register(FireCrystalArmor.FIRECRYSTAL_BOOTS);
+
+        event.getRegistry().register(XrayGoggles.GOGGLES);
 
         //PROJECTILES
         event.getRegistry().register(BombArrowItem.INSTANCE);
