@@ -140,6 +140,8 @@ public class XrayGoggles extends ArmorItem {
 
       for(Entity e : entities) {
         // this cast makes me angry >:(
+        // NOTE: if you want it to effect the player, the getEnts() method and this loop is
+        // unnecessary. Instead, apply .addEffect(...) on the player parameter.
         LivingEntity livingEntity = (LivingEntity) e;
 
         livingEntity.addEffect(new MobEffectInstance(mapStatusEffect.getEffect(),
