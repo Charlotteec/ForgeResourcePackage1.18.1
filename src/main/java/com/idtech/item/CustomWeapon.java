@@ -35,7 +35,7 @@ public class CustomWeapon extends AxeItem {
     //Creating the weapon. Don't touch below this line.
     public static Tier tier = new ForgeTier(level, uses, speed, attackDamageBonus, enchantmentValue, null, ()->{return Ingredient.of(ingredient);});
 
-    public static Item INSTANCE = new CustomWeapon(tier,attackDamage, attackSpeed, new Properties().tab(CreativeModeTab.TAB_COMBAT)).setRegistryName(BaseMod.MODID,"customweapon");
+    public static Item INSTANCE = new CustomWeapon(tier,attackDamage, attackSpeed, new Properties().tab(CreativeModeTab.TAB_COMBAT)).setRegistryName(BaseMod.MODID,"customsword");
 
     public CustomWeapon(Tier tier, int attackDamageIn, float attackSpeedIn, Properties properties){
         super(tier, attackDamageIn, attackSpeedIn, properties);

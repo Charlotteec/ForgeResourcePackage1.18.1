@@ -1,4 +1,4 @@
-{"parent": "minecraft:block/bedrock","textures": { "up": "examplemod:block/tntcannon_top",
+{"parent": "minecraft:block/bedrock","textures": { "up": "examplemod:block/tntcannon_up",
  "down": "examplemod:block/tntcannon_top",
  "south": "examplemod:block/tntcannon_sides",
  "north": "examplemod:block/tntcannon_sides",

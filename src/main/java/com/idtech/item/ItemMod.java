@@ -56,7 +56,6 @@ public class ItemMod {
         event.getRegistry().register(GelAxeItem.INSTANCE);
         event.getRegistry().register(CustomWeapon.INSTANCE);
         event.getRegistry().register(ZooSwordItem.INSTANCE);
-        event.getRegistry().register(Big3DSword.INSTANCE);
         event.getRegistry().register(MaceItem.INSTANCE);
         event.getRegistry().register(SpikedShieldItem.INSTANCE);
 

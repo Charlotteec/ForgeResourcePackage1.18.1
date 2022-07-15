@@ -1,3 +1,5 @@
+import org.codehaus.plexus.util.cli.Commandline
+
 import javax.swing.table.DefaultTableCellRenderer
 
 buildscript {
@@ -407,47 +409,44 @@ task generateLootTables(type: BlockstateGenTask) {
 }
 
 class VerifyTextureTask extends DefaultTask {
-    private String MODID = 'examplemod'
 
-    def String[] getFileContents(path)
+    static boolean success = false
+
+    def String getAllRegistryNames(path)
     {
-        String storage = "";
-        File generate = new File("$project.projectDir\\src\\main\\resources\\" + path)
-        // Make sure this file exists before continuing
-        assert generate.exists() : generate.path + "could not be found!"
-        // Make sure the file isn't empty
-        assert generate.length() != 0 : generate.path + " cannot be empty!"
-
-        // Start looping through everything
-        BufferedReader reader = new BufferedReader(new FileReader(generate)) // Right, because nothing can be easy in java >:/
+        File f = new File(path)
+        BufferedReader reader = new BufferedReader(new FileReader(f)) // Right, because nothing can be easy in java >:/
+        String results = "";
         String line = reader.readLine()
+        // Get every line with a registry name
         while(line != null)
         {
-            // Filter out the first word, as it's always a keyword of some sort.
-            line = line.replace(line.substring(0, line.lastIndexOf(" ") + 1), "")
-            // Just like generateItemJSONs, make sure theres no spaces
-            assert !line.empty : path + " may not contain empty lines!"
-
-            storage += line + "-"
+            if((line.contains("setRegistryName") || line.contains("buildBasicItem") || line.contains("createBasicBlock")) && !line.contains("//"))
+            {
+                String trimmed = line.substring(line.indexOf("\"") + 1, line.lastIndexOf("\""))
+                results += trimmed + "-"
+            }
             line = reader.readLine()
         }
-        // Remove last hypen divider
-        storage = storage.substring(0, storage.length() - 1)
         reader.close()
-
-        String[] entries = storage.split("-")
-        return entries
+        return results;
     }
 
     def String[] getDirectoryContents(path)
     {
-        File dir = new File("$project.projectDir\\src\\main\\resources\\assets\\examplemod\\" + path)
+        File dir = new File(path)
         String storage = ""
         for(final File entry : dir.listFiles())
         {
-            if(entry.getName().contains(".png"))
+            if(entry.getName().contains(".png")) // Texture
             {
                 storage += entry.getName().replace(".png", "") + "-"
+            }
+            else if(entry.getName().contains(".java") && !entry.getName().contains("Utils")) // Java class that's not ItemUtils
+            {
+                // Find the registry name(s) of the item(s)
+                // Certain classes like armors and -Mod classes may have more than one item inside
+                storage += getAllRegistryNames(entry.absolutePath)
             }
         }
         // Remove last hypen
@@ -458,16 +457,17 @@ class VerifyTextureTask extends DefaultTask {
     }
 
     @TaskAction
-    def verifyAllTextures() // Compare contents of resoruces/generate/items to resources/assets/examplemod/textures/item
+    def verifyAllTextures() // Compare item and block classes to their texture directories, throws error if a match for a class isn't found.
     {
+        success = false
         // Fancy output colors
-        final String GREEN = "\u001B[32m"
         final String NO_COLOR= "\u001B[0m"
         final String WHITE_BG = "\u001B[41m"
         final String BLUE = "\u001B[34m"
-        // Get all item models and item textures
-        String[] itemList = getFileContents("generate\\items")
-        String[] itemTextures = getDirectoryContents("textures\\item")
+
+        // Get all items and item textures
+        String[] itemList = getDirectoryContents("$project.projectDir\\src\\main\\java\\com\\idtech\\item\\")
+        String[] itemTextures = getDirectoryContents("$project.projectDir\\src\\main\\resources\\assets\\examplemod\\textures\\item\\")
 
         // Make sure item model has a matching texture
         for(String item : itemList)
@@ -479,44 +479,65 @@ class VerifyTextureTask extends DefaultTask {
                 {
                     foundMatch = true
                     // Print status
-                    println(BLUE + item + " ---> " + tex + ".png" + NO_COLOR)
+                    project.logger.lifecycle(BLUE + item + " ---> " + tex + ".png" + NO_COLOR)
                 }
             }
 
             // Make sure a match was found
-            assert foundMatch : WHITE_BG + item + ".png" + NO_COLOR + "could not be found!"
+            assert foundMatch : WHITE_BG + item + ".png" + NO_COLOR + " could not be found!"
         }
 
-        // Get all block models and block textures
-        String[] blockList = getFileContents("generate\\blocks")
-        String[] blockTextures = getDirectoryContents("textures\\block")
+        //Get all blocks and block textures
+        String[] blockList = getDirectoryContents("$project.projectDir\\src\\main\\java\\com\\idtech\\block\\")
+        String[] blockTextures = getDirectoryContents("$project.projectDir\\src\\main\\resources\\assets\\examplemod\\textures\\block\\")
+
         // Make sure item model has a matching texture
         for(String block : blockList)
         {
             boolean foundMatch = false
             for(String tex : blockTextures)
             {
-                if(block.equals(tex))
+                // TODO: Better multi-textured block implementation
+                // TODO: What to do with commented entries?
+                // Currently only checks for the up texture
+                if(block.equals(tex) || (block + "_up").equals(tex))
                 {
                     foundMatch = true
-                    // Print status
-                    println(BLUE + block + " ---> " + tex + ".png" + NO_COLOR)
+                    // Print found status
+                    project.logger.lifecycle(BLUE + block + " ---> " + tex + ".png" + NO_COLOR)
                 }
             }
 
             // Make sure a match was found
             assert foundMatch : WHITE_BG + block + ".png" + NO_COLOR + " could not be found!"
         }
-        // If you made it here, everything listed has a texture
-        println('\n' + GREEN + "No missing textures detected! Yay!" + NO_COLOR)
+
+        // If you made it here, everything listed has a texture. Congrats :)
+        success = true
     }
 
 }
 
 task verifyTextures(type: VerifyTextureTask) {
     group = 'forgegradle runs'
-    description = 'A gradle task that verifies every entry in generate/blocks and generate/items has a cooresponding texture.'
+    description = 'A gradle task that verifies every block and item has a cooresponding texture.'
+
+
+
+    doFirst {
+        project.logger.warn( "\u001B[31m" + "WARNING: Do not change any item or block files until this task finishes." + "\u001B[0m" + "\n")
+        Thread.sleep(5000) // Make sure people read this warning, we don't want any file corruption. So it's worth the extra 5 seconds
+    }
+
+    doLast {
+        if(VerifyTextureTask.success)
+        {
+            project.logger.lifecycle('\n' + "\u001B[32m" + "Yay! No missing textures detected!" + "\u001B[0m")
+        }
+    }
+
 }
+
 
 
 
