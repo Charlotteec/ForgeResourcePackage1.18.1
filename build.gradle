@@ -1,6 +1,10 @@
 import org.codehaus.plexus.util.cli.Commandline
-
 import javax.swing.table.DefaultTableCellRenderer
+
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.google.gson.JsonArray
+import com.google.gson.JsonObject
 
 buildscript {
     repositories {
@@ -10,6 +14,7 @@ buildscript {
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath group: 'com.google.code.gson', name: 'gson', version: '2.8.8', changing: true
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
@@ -17,12 +22,12 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '1.0'
-group = 'com.yourname.modid' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'modid'
+version = project.mod_version
+group = "${group_name}.${mod_id}" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = project.mod_id
 
 // Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+java.toolchain.languageVersion = JavaLanguageVersion.of(project.minimum_java_version)
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
@@ -37,7 +42,7 @@ minecraft {
     //
     // Use non-default mappings at your own risk. They may not always work.
     // Simply re-run your setup task after changing the mappings to update your workspace.
-    mappings channel: 'official', version: '1.18.1'
+    mappings channel: 'official', version: project.minecraft_version
 
     // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg') // Currently, this location cannot be changed from the default.
 
@@ -60,7 +65,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                examplemod {
+                mod_id {
                     source sourceSets.main
                 }
             }
@@ -82,7 +87,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                examplemod {
+                mod_id {
                     source sourceSets.main
                 }
             }
@@ -104,10 +109,10 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
-            args '--mod', 'examplemod', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', "${mod_id}", '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
             mods {
-                examplemod {
+                mod_id {
                     source sourceSets.main
                 }
             }
@@ -132,7 +137,7 @@ dependencies {
     // Specify the version of Minecraft to use. If this is any group other than 'net.minecraft', it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency, and its patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
-    minecraft 'net.minecraftforge:forge:1.18.1-39.0.10'
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
     // Real mod deobf dependency examples - these get remapped to your current mappings
     // compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency
@@ -151,12 +156,12 @@ dependencies {
 jar {
     manifest {
         attributes([
-                "Specification-Title"     : "examplemod",
-                "Specification-Vendor"    : "examplemodsareus",
+                "Specification-Title"     : "${mod_id}",
+                "Specification-Vendor"    : "${mod_author}",
                 "Specification-Version"   : "1", // We are version 1 of ourselves
-                "Implementation-Title"    : project.name,
-                "Implementation-Version"  : project.jar.archiveVersion,
-                "Implementation-Vendor"   : "examplemodsareus",
+                "Implementation-Title"    : "${mod_name}",
+                "Implementation-Version"  : "${mod_version}",
+                "Implementation-Vendor"   : "${mod_author}",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
@@ -181,34 +186,223 @@ publishing {
     }
 }
 
+/**
+ *          JsonBuilder class
+ *
+ * A utility class that makes building json
+ * files for data generation easier and shorter.
+ *
+ * In short it's a wrapper class for
+ * JsonObject and Json Array
+ *
+ * @author Hunter "Pie" Spragg
+ */
+class JsonBuilder {
+    // Gson is google's json library and we will use it for pretty printing the output.
+    private static Gson gson = new GsonBuilder().setPrettyPrinting().create()
+    // Whether or not the JsonBuilder is wrapping a JsonArray or JsonObject
+    private boolean isArray
+    // The wrapped values.
+    private JsonObject base
+    private JsonArray array
+
+    JsonBuilder() {
+        this.base = new JsonObject();
+        this.isArray = false
+    }
+    JsonBuilder(JsonObject base) {
+        this.base = base
+        this.isArray = false
+    }
+    JsonBuilder(JsonArray array) {
+        this.array = array
+        this.isArray = true
+    }
+
+
+    def add(String propertyName) {
+        if(!isArray) {
+            JsonObject object = new JsonObject()
+            base.add(propertyName, object)
+            return new JsonBuilder(object)
+        }else {
+            JsonObject object = new JsonObject()
+            array.add(object)
+            return new JsonBuilder(object)
+        }
+    }
+
+    def addArray() {
+        if(!isArray) {
+            throw new UnsupportedOperationException("Properties of Objects must be named!")
+        }
+        JsonArray array = new JsonArray()
+        array.add(array)
+        return new JsonBuilder(array)
+    }
+
+    def addObject() {
+        if(!isArray) {
+            throw new UnsupportedOperationException("Properties of Objects must be named!")
+        }
+        JsonObject object = new JsonObject()
+        array.add(object)
+        return new JsonBuilder(object)
+    }
+
+    def addArray(String propertyName) {
+        if(!isArray) {
+            JsonArray array = new JsonArray()
+            base.add(propertyName, array)
+            return new JsonBuilder(array)
+        } else {
+            JsonArray array = new JsonArray()
+            base.add(array)
+            return new JsonBuilder(array)
+        }
+    }
+
+    def addProperty(String propertyName, String value, Object... formatting) {
+        if(!isArray) {
+            base.addProperty(propertyName, String.format(value, formatting))
+            return this
+        }else {
+            throw new UnsupportedOperationException("You cannot add a property to an array!")
+        }
+    }
+
+    def addProperty(String propertyName, String value) {
+        if(!isArray) {
+            base.addProperty(propertyName, value)
+            return this
+        }else {
+            throw new UnsupportedOperationException("You cannot add a property to an array!")
+        }
+    }
+
+    def addProperty(String propertyName, Number value) {
+        if(!isArray) {
+            base.addProperty(propertyName, value)
+            return this
+        } else {
+            throw new UnsupportedOperationException("You cannot add a property to an array!")
+        }
+    }
+
+    def addProperty(String propertyName, Boolean value) {
+        if(!isArray) {
+            base.addProperty(propertyName, value)
+            return this
+        } else {
+            throw new UnsupportedOperationException("You cannot add a property to an array!")
+        }
+    }
+
+    def addProperty(String propertyName, Character value) {
+        if(!isArray) {
+            base.addProperty(propertyName, value)
+            return this
+        } else {
+            throw new UnsupportedOperationException("You cannot add a property to an array!")
+        }
+    }
+
+    /**
+     * Takes a file directory and file name
+     * and generates a .json file at the location
+     * "dir/fileName.json"
+     *
+     * @param dir       The directory the file will be located in
+     * @param fileName  The name of the file being generated
+     */
+    def toJsonFile(String dir, String fileName) {
+        // create the folders if it does not exist.(otherwise it will throw exception)
+        println("Now generating json for "+fileName)
+
+        File directory = new File( "${dir}")
+        if ( !directory.exists() ){
+            println("Creating new file directory...")
+            directory.mkdir()
+            println("Directory Created")
+        }else {
+            println("Directory Found")
+        }
+
+        println("Creating new json file...")
+        // create the file and write text to it.
+        File jsonFile = new File("${dir}/${fileName}.json")
+        println("Writing to json file...")
+        jsonFile.text = gson.toJson(base)
+        println("Json File Created at "+"${dir}/${fileName}.json")
+    }
+
+
+}
+
+/**
+ * This method is used to validate, trim, and clean up each line of the generate script.
+ *
+ * @param line The line of the generation script
+ *
+ * @returns String[] array of lowercase args.
+ */
+def splitLine(String line) {
+    // Trim the line in case a student adds spaces to the sides.
+    // Replace the line with all lowercase in case a student accidentally put
+    // capital letters.
+    line = line.toLowerCase().trim()
+
+    // Check to see if the student forgot to put a
+    // space between the generation type and the name
+    // The length check is to make sure this is not just white space or next line characters
+    if(!line.contains(" ") && line.length() > 3) {
+        println("The following line is missing a space!")
+        println(line)
+        // Let's throw an error here so the student knows that something didn't work properly.
+        throw new Exception("The following line does not contain a space: \""+line+"\"!")
+    }
+
+    // Check to see if the student accidentally placed two spaces on the same line
+    // This could be a difficult error to spot normally esspecially if they are side-by-side.
+    if(line.lastIndexOf(' ') != line.indexOf(' ')){
+        println("The following line has too many spaces!!!")
+        println(line)
+        // Let's throw an error here so the student knows that something didn't work properly.
+        throw new Exception("The following line contains too many spaces!: \""+line+"\"!")
+    }
+
+    return line.split(' ')
+}
 
 class ItemJSONTask extends DefaultTask {
-    private String MODID = 'examplemod'
+    private String MODID = "${project.mod_id}"
 
-    def writeToFile(name, type){
-        String s = ""
+    def writeToFile(String name, String type){
+        JsonBuilder builder = new JsonBuilder();
+
+        // If item type is an egg, use egg template as parent
+        // Otherwise assume parent is the type of item.
         if(type == ("egg")){
             name = name + "_egg"
-            s = "{\"parent\": \"minecraft:item/template_spawn_egg\"}"
-//            System.out.println(s)
+
+            builder.addProperty("parent", "minecraft:item/template_spawn_egg")
         }else{
-            s = "{\"parent\": \"item/" + type.toLowerCase() + "\",\"textures\": {\"layer0\": \"" + MODID + ":item/" + name + "\"}}"
+            builder.addProperty("parent", "item/"+type.toLowerCase())
+            builder.add("textures").addProperty("layer0", "%s:item/%s", MODID, name)
         }
 
-        // create the folders if it does not exist.(otherwise it will throw exception)
-        File extraFolder = new File( "${project.projectDir}/src/main/resources/assets/"+MODID+"/models/item")
-        if( !extraFolder.exists() ) {
-            extraFolder.mkdirs()
-        }
-        // create the file and write text to it.
-        new File("${project.projectDir}/src/main/resources/assets/"+MODID+"/models/item/"+name+".json").text = s
+        builder.toJsonFile(
+                "${project.projectDir}/src/main/resources/assets/"+MODID+"/models/item",
+                name
+        )
+
     }
 
     @TaskAction
     def greet() {
         String[] listy
         new File("${project.projectDir}/src/main/resources/generate/items").eachLine { line ->
-            listy = line.split(" ")
+            listy = project.splitLine(line)
             writeToFile(listy[1], listy[0])
         }
     }
@@ -219,92 +413,64 @@ task generateItemJSONs(type: ItemJSONTask){
     description = 'A gradle task to generate all item jsons from the items file. Use generated for regular items, handheld for tools, and egg for entity egg jsons.'
 }
 
+
 class BlockJSONTask extends DefaultTask {
-    private String MODID = 'examplemod'
+    private String MODID = "${project.mod_id}"
 
-    def blockstatesJSON(name){
+    def blockstatesJSON(name) {
+        JsonBuilder builder = new JsonBuilder();
+        builder.add("variants")
+                .add("")
+                .addProperty("model", "%s:block/%s", MODID, name)
 
-        StringBuilder builder = new StringBuilder();
-
-        builder.append("{\"variants\": {\"\": {\"model\": \"" + MODID + ":block/" + name + "\"}}}")
-
-        String s = builder.toString()
-
-        // create the folders if it does not exist.(otherwise it will throw exception)
-        File extraFolder = new File( "${project.projectDir}/src/main/resources/assets/"+MODID+"/blockstates")
-        if( !extraFolder.exists() ) {
-            extraFolder.mkdirs()
-        }
-        // create the file and write text to it.
-        new File("${project.projectDir}/src/main/resources/assets/"+MODID+"/blockstates/"+name+".json").text = s
+        builder.toJsonFile(
+                "${project.projectDir}/src/main/resources/assets/"+MODID+"/blockstates",
+                name
+        )
     }
 
     def blockJSONMulti(name){
+        JsonBuilder build = new JsonBuilder();
 
-        StringBuilder builder = new StringBuilder();
+        build.addProperty("parent","minecraft:block/bedrock")
 
-        builder.append("{");
-        builder.append("\"parent\": \"minecraft:block/" + "bedrock" + "\",");
-
-        builder.append("\"textures\": {");
         // What this does is that it generates a json that has different textures for each side, but only uses two
         // textures. Obviously this can be extended to have more than just 2 textures, and in theory you could make
         // each side of the block unique. For this case, the textures on the top and bottom must be called "[block_name]_top"
-        //and the texture on the sides "[block_name]_sides"
-        builder.append(" \"up\": \"" + MODID + ":block/" + name + "_up" + "\",\n");
-        builder.append(" \"down\": \"" + MODID + ":block/" + name + "_down" + "\",\n");
-        builder.append(" \"south\": \"" + MODID + ":block/" + name + "_south" + "\",\n");
-        builder.append(" \"north\": \"" + MODID + ":block/" + name + "_north" + "\",\n");
-        builder.append(" \"west\": \"" + MODID + ":block/" + name + "_west" + "\",\n");
-        builder.append(" \"east\": \"" + MODID + ":block/" + name + "_east" + "\"\n");
-        builder.append("}");
-        builder.append("}");
+        // and the texture on the sides "[block_name]_sides"
 
-        String s = builder.toString()
-
-        // create the folders if it does not exist.(otherwise it will throw exception)
-        File extraFolder = new File( "${project.projectDir}/src/main/resources/assets/"+MODID+"/models/block")
-        if( !extraFolder.exists() ) {
-            extraFolder.mkdirs()
+        String[] directions = new String[]{"up","down","north","east","south","west"}
+        JsonBuilder textures = build.add("textures");
+        for (String direction : directions) {
+            textures.addProperty(direction, "%s:block/%s_%s", MODID, name, direction)
         }
-        // create the file and write text to it.
-        new File("${project.projectDir}/src/main/resources/assets/"+MODID+"/models/block/"+name+".json").text = s
+
+        build.toJsonFile(
+                "${project.projectDir}/src/main/resources/assets/"+MODID+"/models/block",
+                name
+        )
     }
     def blockJSON(name){
+        JsonBuilder build = new JsonBuilder()
 
-        StringBuilder builder = new StringBuilder();
+        build.addProperty("parent","minecraft:block/cube_all")
+        build.add("textures").addProperty("all","%s:block/%s", MODID, name)
 
-        builder.append("{");
-        builder.append("\"parent\": \"minecraft:block/" + "cube_all" + "\",");
+        // TODO: Need to figure out how to apply textures properly for various types
 
-        builder.append("\"textures\": {");
-        // TODO: Need to figure out how to apply textures properly for various
-        // types
-        builder.append(" \"all\": \"" + MODID + ":block/" + name + "\"");
-        builder.append("}");
-        builder.append("}");
-
-        String s = builder.toString()
-
-        // create the folders if it does not exist.(otherwise it will throw exception)
-        File extraFolder = new File( "${project.projectDir}/src/main/resources/assets/"+MODID+"/models/block")
-        if( !extraFolder.exists() ) {
-            extraFolder.mkdirs()
-        }
-        // create the file and write text to it.
-        new File("${project.projectDir}/src/main/resources/assets/"+MODID+"/models/block/"+name+".json").text = s
+        build.toJsonFile(
+                "${project.projectDir}/src/main/resources/assets/"+MODID+"/models/block",
+                name
+        )
     }
     def itemJSON(name){
+        JsonBuilder builder = new JsonBuilder()
+        builder.addProperty("parent", "%s:block/%s",MODID, name)
 
-        String s = "{\"parent\": \"" + MODID + ":block/" + name + "\"}"
-
-        // create the folders if it does not exist.(otherwise it will throw exception)
-        File extraFolder = new File( "${project.projectDir}/src/main/resources/assets/"+MODID+"/models/item")
-        if( !extraFolder.exists() ) {
-            extraFolder.mkdirs()
-        }
-        // create the file and write text to it.
-        new File("${project.projectDir}/src/main/resources/assets/"+MODID+"/models/item/"+name+".json").text = s
+        builder.toJsonFile(
+                "${project.projectDir}/src/main/resources/assets/"+MODID+"/models/item",
+                name
+        )
     }
 
 
@@ -312,17 +478,21 @@ class BlockJSONTask extends DefaultTask {
     def greet() {
         String[] listy
         new File("${project.projectDir}/src/main/resources/generate/blocks").eachLine { line ->
-            listy = line.split(" ")
+            listy = project.splitLine(line)
+            // If the block has multiple sides.
             if(listy[0].equals("multi")){
                 blockJSONMulti(listy[1])
             }
+            // If the block is the same on all sides.
             if(listy[0].equals("same")){
                 blockJSON(listy[1])
             }
+
+            // Generate blockstates for the block
             blockstatesJSON(listy[1])
+            // Generate item jsons for the block item.
             itemJSON(listy[1])
         }
-        // println greeting
     }
 }
 
@@ -331,81 +501,100 @@ task generateBlockJSONs(type: BlockJSONTask){
     description = 'A gradle task to generate all block jsons in the blocks file. Choose same for all sides to be the same and multi to decide each side of the block (use _up, _down, _south, _north, _east, _west for texture names).'
 }
 
-class BlockstateGenTask extends DefaultTask {
-    private String MODID = 'examplemod'
+class LoottableGenTask extends DefaultTask {
+    private String MODID = "${project.mod_id}"
 
     def writeToFile(name, type) {
+        JsonBuilder build = new JsonBuilder()
+        build.addProperty("type", "minecraft:%s", type)
+        JsonBuilder pool = build.addArray("pools").addObject()
+        pool.addProperty("rolls", 1.0)
+        pool.addProperty("bonus_rolls", 0.0)
+        JsonBuilder entry = pool.addArray("entries").addObject()
+        entry.addProperty("type","minecraft:item")
+
         if(type == "block") {
-            String s = "{\n" +
-                    "  \"type\": \"minecraft:block\",\n" +
-                    "  \"pools\": [\n" +
-                    "    {\n" +
-                    "      \"rolls\": 1.0,\n" +
-                    "      \"bonus_rolls\": 0.0,\n" +
-                    "      \"entries\": [\n" +
-                    "        {\n" +
-                    "          \"type\": \"minecraft:item\",\n" +
-                    "          \"name\": \"" + MODID + ":" + name + "\"\n" +
-                    "        }\n" +
-                    "      ],\n" +
-                    "      \"conditions\": [\n" +
-                    "        {\n" +
-                    "          \"condition\": \"minecraft:survives_explosion\"\n" +
-                    "        }\n" +
-                    "      ]\n" +
-                    "    }\n" +
-                    "  ]\n" +
-                    "}"
-
-            // create the folders if it does not exist.(otherwise it will throw exception)
-            File extraFolder = new File("${project.projectDir}/src/main/resources/data/" + MODID + "/loot_tables/blocks")
-            if (!extraFolder.exists()) {
-                extraFolder.mkdirs()
-            }
-            // create the file and write text to it.
-            new File("${project.projectDir}/src/main/resources/data/" + MODID + "/loot_tables/blocks/" + name + ".json").text = s
-
+            entry.addProperty("name", "%s:%s", MODID, name)
+            pool.addArray("conditions")
+                    .addObject()
+                    .addProperty("condition", "minecraft:survives_explosion")
+            build.toJsonFile(
+                    "${project.projectDir}/src/main/resources/data/" + MODID + "/loot_tables/blocks",
+                    name
+            )
         }else if(type == "entity") {
-
-            String s = "{\n" +
-                    "  \"type\": \"minecraft:entity\",\n" +
-                    "  \"pools\": [\n" +
-                    "    {\n" +
-                    "      \"rolls\": 1,\n" +
-                    "      \"entries\": [\n" +
-                    "        {\n" +
-                    "          \"type\": \"minecraft:item\",\n" +
-                    "          \"name\": \"minecraft:rotten_flesh\"\n" +
-                    "        }\n" +
-                    "      ]\n" +
-                    "    }\n" +
-                    "  ]\n" +
-                    "}"
-
-            // create the folders if it does not exist.(otherwise it will throw exception)
-            File extraFolder = new File("${project.projectDir}/src/main/resources/data/" + MODID + "/loot_tables/entities/")
-            if (!extraFolder.exists()) {
-                extraFolder.mkdirs()
-               }
-            // create the file and write text to it.
-            new File("${project.projectDir}/src/main/resources/data/" + MODID + "/loot_tables/entities/" + name + ".json").text = s
-
-
+            entry.addProperty("name", "minecraft:rotten_flesh")
+            build.toJsonFile(
+                    "${project.projectDir}/src/main/resources/data/" + MODID + "/loot_tables/entities",
+                    name
+            )
         }
     }
     @TaskAction
     def greet() {
         String[] listy
         new File("${project.projectDir}/src/main/resources/generate/loot").eachLine { line ->
-            listy = line.split(" ")
+            listy = project.splitLine(line)
             writeToFile(listy[1], listy[0])
         }
     }
 
 }
-task generateLootTables(type: BlockstateGenTask) {
+task generateLootTables(type: LoottableGenTask) {
     group = 'forgegradle runs'
     description = 'A gradle task to generate loot tables for blocks to drop themselves.'
+}
+
+class ChangeModID extends DefaultTask {
+    private String OLD_NAME = "${project.old_mod_id}"
+    private String NEW_NAME = "${project.mod_id}"
+    private Stack<File> FILE_STACK = null
+
+    def moveFile(File file) {
+        println("Working on... "+file.getCanonicalPath())
+        if(file.isDirectory()){
+            if(file.getName().equals(OLD_NAME)) {
+                println("Found file using old mod ID...")
+                File dest = new File(file.getAbsolutePath().replace(OLD_NAME,NEW_NAME));
+                if(!file.renameTo(dest)){
+                    throw new Exception("Unable to move files from "+file.getAbsolutePath()+" to "+dest.getAbsolutePath())
+                }
+                FILE_STACK.addAll(dest.listFiles())
+            } else{
+                FILE_STACK.addAll(file.listFiles())
+            }
+        }else {
+            // Try to replace all references of examplemod
+            if(file.isFile()){
+                String extension = file.getName().substring(file.getName().lastIndexOf('.')+1)
+                switch(extension) {
+                    case "mcmeta":
+                    case "json":
+                    case "toml":
+                    case "java":
+                        String text = file.text
+                        file.text = text.replace(OLD_NAME, NEW_NAME)
+                        break
+                }
+            }
+        }
+    }
+
+    @TaskAction
+    def greet() {
+        FILE_STACK = new Stack<>()
+        FILE_STACK.addAll(new File("${project.projectDir}/src/main").listFiles())
+        File file
+        while(!FILE_STACK.isEmpty()) {
+            file = FILE_STACK.pop()
+            moveFile(file)
+        }
+    }
+}
+
+task updateModID(type: ChangeModID) {
+    group = 'forgegradle runs'
+    description = 'A gradle task to change all references of examplemod, and replace them with the new modID.'
 }
 
 class VerifyTextureTask extends DefaultTask {
