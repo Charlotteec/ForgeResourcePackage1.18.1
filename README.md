@@ -8,3 +8,6 @@ to this branch when testing things you want to add.
 ## Features and their Progress
 This is the list of the different experimental features in this branch, and a note on where they are in development.
 - verifyTextures Task: Needs More Testing
+- Moved all instances of "examplemod" to a variable in gradle.properties
+- Restructured the "generateJSON" tasks to new unified format: Needs More Testing
+- changeModID Task: Needs More Testing
