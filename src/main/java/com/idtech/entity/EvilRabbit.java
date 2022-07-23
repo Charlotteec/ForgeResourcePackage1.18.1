@@ -56,7 +56,7 @@ public class EvilRabbit extends Rabbit {
     }
 
     @Override
-    protected SoundEvent getHurtSound(DamageSource p_29715_) {
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
         return SoundEvents.CREEPER_HURT;
     }
 
