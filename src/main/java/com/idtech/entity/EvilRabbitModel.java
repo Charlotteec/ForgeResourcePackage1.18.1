@@ -98,17 +98,17 @@ public class EvilRabbitModel<T extends EvilRabbit> extends EntityModel<T> {
 		return LayerDefinition.create(meshdefinition, 64, 32);
 	}
 
-	public void setupAnim(T p_103548_, float p_103549_, float p_103550_, float p_103551_, float p_103552_, float p_103553_) {
-		float f = p_103551_ - (float)p_103548_.tickCount;
-		this.nose.xRot = p_103553_ * ((float)Math.PI / 180F);
-		this.head.xRot = p_103553_ * ((float)Math.PI / 180F);
-		this.earRight.xRot = p_103553_ * ((float)Math.PI / 180F);
-		this.earLeft.xRot = p_103553_ * ((float)Math.PI / 180F);
-		this.nose.yRot = p_103552_ * ((float)Math.PI / 180F);
-		this.head.yRot = p_103552_ * ((float)Math.PI / 180F);
+	public void setupAnim(T arg, float f, float g, float h, float i, float j) {
+		float k = h - (float)arg.tickCount;
+		this.nose.xRot = j * ((float)Math.PI / 180F);
+		this.head.xRot = j * ((float)Math.PI / 180F);
+		this.earRight.xRot = j * ((float)Math.PI / 180F);
+		this.earLeft.xRot = j * ((float)Math.PI / 180F);
+		this.nose.yRot = i * ((float)Math.PI / 180F);
+		this.head.yRot = i * ((float)Math.PI / 180F);
 		this.earRight.yRot = this.nose.yRot - 0.2617994F;
 		this.earLeft.yRot = this.nose.yRot + 0.2617994F;
-		this.jumpRotation = Mth.sin(p_103548_.getJumpCompletion(f) * (float)Math.PI);
+		this.jumpRotation = Mth.sin(arg.getJumpCompletion(k) * (float)Math.PI);
 		this.haunchLeft.xRot = (this.jumpRotation * 50.0F - 21.0F) * ((float)Math.PI / 180F);
 		this.haunchRight.xRot = (this.jumpRotation * 50.0F - 21.0F) * ((float)Math.PI / 180F);
 		this.rearFootLeft.xRot = this.jumpRotation * 50.0F * ((float)Math.PI / 180F);
