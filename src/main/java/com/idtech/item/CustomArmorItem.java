@@ -1,10 +1,13 @@
 package com.idtech.item;
 
-import com.idtech.BaseMod;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nullable;
 
@@ -16,10 +19,10 @@ public class CustomArmorItem extends ArmorItem {
             SoundEvents.ARMOR_EQUIP_IRON, 4.0f, 0.3f,"examplemod:gelore");
 
     //create instances for each piece of armor
-    public static final Item CUSTOM_HELM = new CustomArmorItem(customMaterial, EquipmentSlot.HEAD, (properties)).setRegistryName(BaseMod.MODID, "custom_helm");
-    public static final Item CUSTOM_CHEST = new CustomArmorItem(customMaterial, EquipmentSlot.CHEST, (properties)).setRegistryName(BaseMod.MODID, "custom_chest");
-    public static final Item CUSTOM_LEGS = new CustomArmorItem(customMaterial, EquipmentSlot.LEGS, (properties)).setRegistryName(BaseMod.MODID, "custom_legs");
-    public static final Item CUSTOM_BOOTS = new CustomArmorItem(customMaterial, EquipmentSlot.FEET, (properties)).setRegistryName(BaseMod.MODID, "custom_boots");
+    public static final Item CUSTOM_HELM = new CustomArmorItem(customMaterial, EquipmentSlot.HEAD, (properties)).setRegistryName("custom_helm");
+    public static final Item CUSTOM_CHEST = new CustomArmorItem(customMaterial, EquipmentSlot.CHEST, (properties)).setRegistryName("custom_chest");
+    public static final Item CUSTOM_LEGS = new CustomArmorItem(customMaterial, EquipmentSlot.LEGS, (properties)).setRegistryName("custom_legs");
+    public static final Item CUSTOM_BOOTS = new CustomArmorItem(customMaterial, EquipmentSlot.FEET, (properties)).setRegistryName("custom_boots");
 
 //constructor
     public CustomArmorItem(ArmorMaterial material, EquipmentSlot slot, Properties properties) {

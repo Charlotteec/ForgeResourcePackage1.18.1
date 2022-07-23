@@ -1,8 +1,5 @@
 package com.idtech.block;
 
-import com.idtech.BaseMod;
-import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -22,11 +19,11 @@ public class BlockUtils {
      */
 
     public static Block createBasicBlock(String name, Material material){
-        return new Block(Block.Properties.of(material)).setRegistryName(BaseMod.MODID, name);
+        return new Block(Block.Properties.of(material)).setRegistryName(name);
     }
 
     public static Block createBasicBlock(String name, Material material, float strength){
-        return new Block(Block.Properties.of(material).strength(strength)).setRegistryName(BaseMod.MODID, name);
+        return new Block(Block.Properties.of(material).strength(strength)).setRegistryName(name);
     }
 
 

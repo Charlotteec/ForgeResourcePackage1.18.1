@@ -1,6 +1,5 @@
 package com.idtech.block;
 
-import com.idtech.BaseMod;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.CreativeModeTab;
@@ -14,7 +13,7 @@ public class RubberBlock extends Block {
     private static Properties properties = Properties.of(Material.STONE).strength(0.5f).destroyTime(0.2f);
 
     //static instances for registration
-    public static Block INSTANCE = new RubberBlock(properties).setRegistryName(BaseMod.MODID,"rubber");
+    public static Block INSTANCE = new RubberBlock(properties).setRegistryName("rubber");
     public static Item ITEM = BlockUtils.createBlockItem(INSTANCE, CreativeModeTab.TAB_MISC);
 
     //constructor

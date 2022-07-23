@@ -1,6 +1,5 @@
 package com.idtech.block;
 
-import com.idtech.BaseMod;
 import com.idtech.ModTab;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -16,7 +15,7 @@ public class LatteBlock extends Block {
     private static Properties properties = Properties.of(Material.DIRT).strength(0.5f).destroyTime(0.2f);
 
     //static instances for registration
-    public static Block INSTANCE = new LatteBlock(properties).setRegistryName(BaseMod.MODID,"latteblock");
+    public static Block INSTANCE = new LatteBlock(properties).setRegistryName("latteblock");
     public static Item ITEM = BlockUtils.createBlockItem(INSTANCE, ModTab.INSTANCE);
 
 

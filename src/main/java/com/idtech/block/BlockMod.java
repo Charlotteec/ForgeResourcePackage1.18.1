@@ -1,18 +1,12 @@
 package com.idtech.block;
 
 
-import com.idtech.BaseMod;
 import com.idtech.ModTab;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.level.block.Block;
-//import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.OreBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
-//import net.minecraftforge.common.ToolType;
-import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -29,18 +23,18 @@ public class BlockMod {
     // might make sense to make a method in blockutils to make this process simpler but idk
     public static final Block GEL_ORE_BLOCK =
             new OreBlock(Block.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(3.0F, 3.0F))
-                    .setRegistryName(BaseMod.MODID, "geloreblock");
+                    .setRegistryName("geloreblock");
     public static final Item GEL_ORE_ITEM = BlockUtils.createBlockItem(GEL_ORE_BLOCK, ModTab.INSTANCE);
 
     public static final Block END_ORE_BLOCK =
             new OreBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F))
-                    .setRegistryName(BaseMod.MODID, "endoreblock");
+                    .setRegistryName("endoreblock");
     public static final Item END_ORE_BLOCK_ITEM = BlockUtils.createBlockItem(END_ORE_BLOCK, ModTab.INSTANCE);
 
     public static final Block FIRE_CRYSTAL_BLOCK =
             new OreBlock(Block.Properties.of(Material.STONE).requiresCorrectToolForDrops()
                     .strength(2F, 2F))
-                    .setRegistryName(BaseMod.MODID, "firecrystalblock");
+                    .setRegistryName( "firecrystalblock");
     public static final Item FIRE_CRYSTAL_BLOCK_ITEM = BlockUtils.createBlockItem(FIRE_CRYSTAL_BLOCK, ModTab.INSTANCE);
 
     @SubscribeEvent

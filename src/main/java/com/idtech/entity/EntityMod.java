@@ -2,7 +2,6 @@ package com.idtech.entity;
 
 import com.idtech.entity.projectiles.ExplosionProjectile;
 import com.idtech.entity.projectiles.LaunchProjectile;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;

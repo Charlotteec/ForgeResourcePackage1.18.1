@@ -1,6 +1,5 @@
 package com.idtech.entity;
 
-import com.idtech.BaseMod;
 import com.idtech.SoundHandler;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -9,7 +8,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.behavior.Swim;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
@@ -25,7 +23,7 @@ public class EvilRabbit extends Rabbit {
     //TYPE
     public static EntityType<EvilRabbit> TYPE = (EntityType<EvilRabbit>)
             EntityType.Builder.of(EvilRabbit::new, MobCategory.MONSTER).sized(0.6F, 1.95F).
-                    clientTrackingRange(8).build("evilrabbit").setRegistryName(BaseMod.MODID, "evilrabbit");
+                    clientTrackingRange(8).build("evilrabbit").setRegistryName("evilrabbit");
     //EGG
     public static Item EGG = EntityUtils.buildEntitySpawnEgg(TYPE, 0xfef9f8, 0x383737);
 

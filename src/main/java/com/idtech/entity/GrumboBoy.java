@@ -1,12 +1,14 @@
 package com.idtech.entity;
 
-import com.idtech.BaseMod;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.MoveThroughVillageGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.ZombieAttackGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.IronGolem;
@@ -23,7 +25,7 @@ public class GrumboBoy extends Zombie {
 
     //TYPE
     public static EntityType<GrumboBoy> TYPE = (EntityType<GrumboBoy>)
-            EntityType.Builder.of(GrumboBoy::new, MobCategory.MONSTER).sized(0.6F, 1.95F).clientTrackingRange(8).build("grumboboy").setRegistryName(BaseMod.MODID, "grumboboy");
+            EntityType.Builder.of(GrumboBoy::new, MobCategory.MONSTER).sized(0.6F, 1.95F).clientTrackingRange(8).build("grumboboy").setRegistryName( "grumboboy");
     //EGG
     public static Item EGG = EntityUtils.buildEntitySpawnEgg(TYPE, 0xb00101, 0xacbf1f);
 
