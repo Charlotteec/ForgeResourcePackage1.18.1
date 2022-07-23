@@ -27,8 +27,15 @@ public class RubberBlock extends Block {
     public void stepOn(Level levelIn, BlockPos posIn, BlockState blockStateIn, Entity entityIn) {
         super.stepOn(levelIn, posIn, blockStateIn, entityIn);
 
-        entityIn.setDeltaMovement(0,5,0);
+        // Add momentum to the entity rather than removing
+        var delta = entityIn.getDeltaMovement();
+
+        entityIn.setDeltaMovement(delta.x, 5, delta.z);
 
     }
 
+    @Override
+    public void fallOn( Level levelIn, BlockState blockStateIn, BlockPos posIn, Entity entityIn, float distance ) {
+        // Just by overriding this method and not calling super we prevent all forms of fall damage.
+    }
 }
