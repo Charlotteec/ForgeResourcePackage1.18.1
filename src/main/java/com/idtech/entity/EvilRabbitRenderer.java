@@ -11,7 +11,7 @@ public class EvilRabbitRenderer extends MobRenderer<EvilRabbit, EvilRabbitModel<
     }
 
     @Override
-    public ResourceLocation getTextureLocation(EvilRabbit p_114482_) {
+    public ResourceLocation getTextureLocation(EvilRabbit rabbit) {
         return new ResourceLocation("textures/entity/evilrabbit.png");
     }
 
