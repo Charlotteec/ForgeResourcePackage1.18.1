@@ -10,8 +10,8 @@ import net.minecraftforge.common.ForgeTier;
 public class GelPickaxeItem extends PickaxeItem {
 
 
-    public static Tier tier = new ForgeTier(4, 1000, 25.0F, 10.0F, 10, null, ()->{return Ingredient.of(ItemMod.STRUCTURE_GEL);});
-    public static Item INSTANCE = new GelPickaxeItem(tier,100, 100, new Properties().tab(CreativeModeTab.TAB_MISC)).setRegistryName("gelpickaxe");
+
+    public static Item INSTANCE = new GelPickaxeItem(ItemMod.gelTier,100, 100, new Properties().tab(CreativeModeTab.TAB_MISC)).setRegistryName("gelpickaxe");
 
     public GelPickaxeItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties properties){
         super(tier, attackDamageIn, attackSpeedIn, properties);

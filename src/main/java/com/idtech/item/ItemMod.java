@@ -9,6 +9,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.ForgeTier;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -26,8 +27,16 @@ public class ItemMod {
     public static FoodProperties yummyFood = (new FoodProperties.Builder().nutrition(5).saturationMod(1.4f).effect(new MobEffectInstance(MobEffects.HEALTH_BOOST, 500, 1), 1.0f).effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 400, 1), 1.0F).alwaysEat().build());
     public static Item yummyFoodItem = ItemUtils.buildFoodItem("yummyfood", yummyFood);
 
-    //TOOLS
-    public static Tier fireCrystalTier = new ForgeTier(5, 100, 25.0F, 10.0F, 10, null, ()->{return Ingredient.of(ItemMod.FIRE_CRYSTAL);});
+    //TIERS
+
+    // Break down of Tier Level:
+    // If a block has the tag "needs_diamond_tool" and has a level less than 3, then it cannot harvest the block.
+    // If a block has the tag "needs_iron_tool" and has a level less than 2, then it cannot harvest the block.
+    // If a block has the tag "needs_stone_tool" and has a level less than 1, then it cannot harvest the block.
+    // Finally, if the block does not have any of the above tags, then it will check the tier's Tag to see if the current block is inside that tag.
+    // This tag is only used when the game's tiers are sorted. So side effects from passing null are only visible in rare instances.
+    public static Tier fireCrystalTier = new ForgeTier(5, 100, 25.0F, 10.0F, 10, Tags.Blocks.ORES, ()->{return Ingredient.of(ItemMod.FIRE_CRYSTAL);});
+    public static Tier gelTier = new ForgeTier(4, 1000, 25.0F, 10.0F, 10, Tags.Blocks.ORES, ()->{return Ingredient.of(ItemMod.STRUCTURE_GEL);});
 
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {
@@ -53,6 +62,8 @@ public class ItemMod {
         event.getRegistry().register(GelPickaxeItem.INSTANCE);
         event.getRegistry().register(GelSwordItem.INSTANCE);
         event.getRegistry().register(GelAxeItem.INSTANCE);
+        event.getRegistry().register(GelHoeItem.INSTANCE);
+        event.getRegistry().register(GelShovelItem.INSTANCE);
         event.getRegistry().register(CustomWeapon.INSTANCE);
         event.getRegistry().register(ZooSwordItem.INSTANCE);
         event.getRegistry().register(MaceItem.INSTANCE);
