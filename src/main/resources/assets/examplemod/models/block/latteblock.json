@@ -1,8 +1,11 @@
-{"parent": "minecraft:block/dirt",
- "textures": { "up": "examplemod:block/latteblock_up",
- "down": "examplemod:block/latteblock_down",
- "south": "examplemod:block/latteblock_south",
- "north": "examplemod:block/latteblock_north",
- "west": "examplemod:block/latteblock_west",
- "east": "examplemod:block/latteblock_east"
-}}
+{
+  "parent": "minecraft:block/bedrock",
+  "textures": {
+    "up": "examplemod:block/latteblock_up",
+    "down": "examplemod:block/latteblock_down",
+    "north": "examplemod:block/latteblock_north",
+    "east": "examplemod:block/latteblock_east",
+    "south": "examplemod:block/latteblock_south",
+    "west": "examplemod:block/latteblock_west"
+  }
+}

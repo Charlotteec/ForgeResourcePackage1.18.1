@@ -1,7 +1,11 @@
-{"parent": "minecraft:block/bedrock","textures": { "up": "examplemod:block/tntcannon_up",
- "down": "examplemod:block/tntcannon_top",
- "south": "examplemod:block/tntcannon_sides",
- "north": "examplemod:block/tntcannon_sides",
- "west": "examplemod:block/tntcannon_sides",
- "east": "examplemod:block/tntcannon_sides"
-}}
+{
+  "parent": "minecraft:block/bedrock",
+  "textures": {
+    "up": "examplemod:block/tntcannon_up",
+    "down": "examplemod:block/tntcannon_down",
+    "north": "examplemod:block/tntcannon_north",
+    "east": "examplemod:block/tntcannon_east",
+    "south": "examplemod:block/tntcannon_south",
+    "west": "examplemod:block/tntcannon_west"
+  }
+}

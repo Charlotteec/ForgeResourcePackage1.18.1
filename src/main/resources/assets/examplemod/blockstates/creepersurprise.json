@@ -1,1 +1,7 @@
-{"variants": {"": {"model": "examplemod:block/creepersurprise"}}}
+{
+  "variants": {
+    "": {
+      "model": "examplemod:block/creepersurprise"
+    }
+  }
+}

@@ -1,1 +1,6 @@
-{"parent": "minecraft:block/cube_all","textures": { "all": "examplemod:block/exampleblock"}}
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "examplemod:block/exampleblock"
+  }
+}

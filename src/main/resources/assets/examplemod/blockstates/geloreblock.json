@@ -1,1 +1,7 @@
-{"variants": {"": {"model": "examplemod:block/geloreblock"}}}
+{
+  "variants": {
+    "": {
+      "model": "examplemod:block/geloreblock"
+    }
+  }
+}
