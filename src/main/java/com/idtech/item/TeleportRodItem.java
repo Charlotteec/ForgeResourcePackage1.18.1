@@ -31,7 +31,7 @@ public class TeleportRodItem extends Item {
         BlockPos blockPos = Utils.getBlockAtCursor(playerIn, 1000.0d, true);
 
            if (blockPos != null){//&& serverplayer.connection.getConnection().isConnected() && serverplayer.level == level && !serverplayer.isSleeping()) {
-                playerIn.teleportTo(blockPos.getX(), blockPos.getY(), blockPos.getZ());
+                playerIn.teleportTo(blockPos.getX(), blockPos.getY()+1, blockPos.getZ());
                 playerIn.fallDistance = 0.0F;
           }
 
