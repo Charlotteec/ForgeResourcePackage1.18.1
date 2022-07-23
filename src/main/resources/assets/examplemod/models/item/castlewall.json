@@ -1,1 +1,3 @@
-{"parent": "examplemod:block/castlewall"}
+{
+  "parent": "examplemod:block/castlewall"
+}

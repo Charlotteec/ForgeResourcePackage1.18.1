@@ -1,1 +1,7 @@
-{"variants": {"": {"model": "examplemod:block/tntcannon"}}}
+{
+  "variants": {
+    "": {
+      "model": "examplemod:block/tntcannon"
+    }
+  }
+}

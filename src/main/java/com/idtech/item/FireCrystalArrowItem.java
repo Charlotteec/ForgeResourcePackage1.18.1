@@ -1,7 +1,5 @@
 package com.idtech.item;
 
-import com.idtech.ModTab;
-import com.idtech.entity.projectiles.BombArrow;
 import com.idtech.entity.projectiles.FireCrystalArrow;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;

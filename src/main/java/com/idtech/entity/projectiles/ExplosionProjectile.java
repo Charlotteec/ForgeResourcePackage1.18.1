@@ -1,12 +1,10 @@
 package com.idtech.entity.projectiles;
 
-import com.idtech.BaseMod;
-import com.idtech.item.ExplosionProjectileItem;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.projectile.ItemSupplier;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
-import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Explosion;
@@ -22,7 +20,7 @@ public class ExplosionProjectile extends ThrowableItemProjectile implements Item
     public static EntityType<? extends ThrowableItemProjectile> TYPE = (EntityType<ExplosionProjectile>)
             EntityType.Builder.<ExplosionProjectile>of(ExplosionProjectile::new, MobCategory.MISC)
                     .sized(0.25F, 0.25F).build("explosionprojectile")
-                    .setRegistryName(BaseMod.MODID, "explosionprojectile");
+                    .setRegistryName("explosionprojectile");
 
 
     public ExplosionProjectile(EntityType<ExplosionProjectile> type, Level level) {

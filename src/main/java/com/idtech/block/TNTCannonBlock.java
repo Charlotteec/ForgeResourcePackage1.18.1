@@ -1,6 +1,5 @@
 package com.idtech.block;
 
-import com.idtech.BaseMod;
 import com.idtech.ModTab;
 import com.idtech.Utils;
 import net.minecraft.core.BlockPos;
@@ -8,7 +7,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.PrimedTnt;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -23,7 +21,7 @@ public class TNTCannonBlock extends Block {
     //I make the resistance higher because it has the opportunity to blow itself up quite easily
     private static Properties properties = Properties.of(Material.HEAVY_METAL).sound(SoundType.ANVIL).randomTicks();
 
-    public static Block INSTANCE = new TNTCannonBlock(properties).setRegistryName(BaseMod.MODID,"tntcannon");
+    public static Block INSTANCE = new TNTCannonBlock(properties).setRegistryName("tntcannon");
 
     public static Item ITEM = BlockUtils.createBlockItem(INSTANCE, ModTab.INSTANCE);
 

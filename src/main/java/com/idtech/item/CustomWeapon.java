@@ -1,13 +1,11 @@
 package com.idtech.item;
 
-import com.idtech.BaseMod;
-
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeTier;
-import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class CustomWeapon extends AxeItem {
 
@@ -35,7 +33,7 @@ public class CustomWeapon extends AxeItem {
     //Creating the weapon. Don't touch below this line.
     public static Tier tier = new ForgeTier(level, uses, speed, attackDamageBonus, enchantmentValue, null, ()->{return Ingredient.of(ingredient);});
 
-    public static Item INSTANCE = new CustomWeapon(tier,attackDamage, attackSpeed, new Properties().tab(CreativeModeTab.TAB_COMBAT)).setRegistryName(BaseMod.MODID,"customsword");
+    public static Item INSTANCE = new CustomWeapon(tier,attackDamage, attackSpeed, new Properties().tab(CreativeModeTab.TAB_COMBAT)).setRegistryName("customsword");
 
     public CustomWeapon(Tier tier, int attackDamageIn, float attackSpeedIn, Properties properties){
         super(tier, attackDamageIn, attackSpeedIn, properties);

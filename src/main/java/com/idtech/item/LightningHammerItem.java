@@ -1,13 +1,10 @@
 package com.idtech.item;
 
 
-import com.idtech.BaseMod;
 import com.idtech.Utils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -19,7 +16,7 @@ public class LightningHammerItem extends Item{
 
     //static instance for registration
     private static Properties properties = new Properties().tab(CreativeModeTab.TAB_MISC);
-    public static Item INSTANCE = new LightningHammerItem(properties).setRegistryName(BaseMod.MODID, "lightninghammer");
+    public static Item INSTANCE = new LightningHammerItem(properties).setRegistryName("lightninghammer");
 
     //constructor
     public LightningHammerItem(Properties properties) {

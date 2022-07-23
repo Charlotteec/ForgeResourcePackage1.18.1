@@ -1,1 +1,7 @@
-{"variants": {"": {"model": "examplemod:block/firecrystalblock"}}}
+{
+  "variants": {
+    "": {
+      "model": "examplemod:block/firecrystalblock"
+    }
+  }
+}

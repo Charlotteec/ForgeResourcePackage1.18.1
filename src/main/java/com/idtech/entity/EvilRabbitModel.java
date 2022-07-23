@@ -1,22 +1,23 @@
 package com.idtech.entity;
 
 
-import com.idtech.BaseMod;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.model.RabbitModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
-import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
 
 public class EvilRabbitModel<T extends EvilRabbit> extends EntityModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(BaseMod.MODID, "evilrabbit"), "main");
+	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("evilrabbit"), "main");
 	private final ModelPart rearFootLeft;
 	private final ModelPart rearFootRight;
 	private final ModelPart haunchLeft;
@@ -97,17 +98,17 @@ public class EvilRabbitModel<T extends EvilRabbit> extends EntityModel<T> {
 		return LayerDefinition.create(meshdefinition, 64, 32);
 	}
 
-	public void setupAnim(T p_103548_, float p_103549_, float p_103550_, float p_103551_, float p_103552_, float p_103553_) {
-		float f = p_103551_ - (float)p_103548_.tickCount;
-		this.nose.xRot = p_103553_ * ((float)Math.PI / 180F);
-		this.head.xRot = p_103553_ * ((float)Math.PI / 180F);
-		this.earRight.xRot = p_103553_ * ((float)Math.PI / 180F);
-		this.earLeft.xRot = p_103553_ * ((float)Math.PI / 180F);
-		this.nose.yRot = p_103552_ * ((float)Math.PI / 180F);
-		this.head.yRot = p_103552_ * ((float)Math.PI / 180F);
+	public void setupAnim(T arg, float f, float g, float h, float i, float j) {
+		float k = h - (float)arg.tickCount;
+		this.nose.xRot = j * ((float)Math.PI / 180F);
+		this.head.xRot = j * ((float)Math.PI / 180F);
+		this.earRight.xRot = j * ((float)Math.PI / 180F);
+		this.earLeft.xRot = j * ((float)Math.PI / 180F);
+		this.nose.yRot = i * ((float)Math.PI / 180F);
+		this.head.yRot = i * ((float)Math.PI / 180F);
 		this.earRight.yRot = this.nose.yRot - 0.2617994F;
 		this.earLeft.yRot = this.nose.yRot + 0.2617994F;
-		this.jumpRotation = Mth.sin(p_103548_.getJumpCompletion(f) * (float)Math.PI);
+		this.jumpRotation = Mth.sin(arg.getJumpCompletion(k) * (float)Math.PI);
 		this.haunchLeft.xRot = (this.jumpRotation * 50.0F - 21.0F) * ((float)Math.PI / 180F);
 		this.haunchRight.xRot = (this.jumpRotation * 50.0F - 21.0F) * ((float)Math.PI / 180F);
 		this.rearFootLeft.xRot = this.jumpRotation * 50.0F * ((float)Math.PI / 180F);

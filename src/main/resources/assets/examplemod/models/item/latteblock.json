@@ -1,1 +1,3 @@
-{"parent": "examplemod:block/latteblock"}
+{
+  "parent": "examplemod:block/latteblock"
+}

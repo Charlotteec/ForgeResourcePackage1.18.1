@@ -1,1 +1,11 @@
-block endoreblock
+block castlewall
+block creepersurprise
+block creepingmold
+ore endore
+ore firecrystal
+ore gelore
+block latteblock
+block lattemidblock
+block rubber
+block tntcannon
+entity zombo

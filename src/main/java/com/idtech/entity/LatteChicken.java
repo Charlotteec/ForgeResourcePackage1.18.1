@@ -1,24 +1,21 @@
 package com.idtech.entity;
 
-import com.idtech.BaseMod;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Cow;
-import net.minecraft.world.entity.animal.IronGolem;
-import net.minecraft.world.entity.animal.Turtle;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.ZombifiedPiglin;
-import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
@@ -26,7 +23,7 @@ public class LatteChicken extends Monster {
 
     //TYPE
     public static EntityType<LatteChicken> TYPE = (EntityType<LatteChicken>)
-            EntityType.Builder.of(LatteChicken::new, MobCategory.MONSTER).sized(0.6F, 1.95F).clientTrackingRange(8).build("lattechicken").setRegistryName(BaseMod.MODID, "lattechicken");
+            EntityType.Builder.of(LatteChicken::new, MobCategory.MONSTER).sized(0.6F, 1.95F).clientTrackingRange(8).build("lattechicken").setRegistryName("lattechicken");
     //EGG
     public static Item EGG = EntityUtils.buildEntitySpawnEgg(TYPE, 0xb00101, 0xacbf1f);
 

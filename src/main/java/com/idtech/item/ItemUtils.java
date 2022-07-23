@@ -1,24 +1,17 @@
 package com.idtech.item;
 
-import com.idtech.BaseMod;
-
-import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
-
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
@@ -34,7 +27,7 @@ public class ItemUtils {
      * @return The built item.
      */
     public static Item buildBasicItem(String name, CreativeModeTab group){
-        return new Item(new Item.Properties().tab(group)).setRegistryName(BaseMod.MODID, name);
+        return new Item(new Item.Properties().tab(group)).setRegistryName(name);
     }
 
     /**
@@ -44,7 +37,7 @@ public class ItemUtils {
      * @return
      */
     public static Item buildFoodItem(String name, FoodProperties food){
-        return new Item(new Item.Properties().tab(CreativeModeTab.TAB_FOOD).food(food)).setRegistryName(BaseMod.MODID, name);
+        return new Item(new Item.Properties().tab(CreativeModeTab.TAB_FOOD).food(food)).setRegistryName(name);
     }
 
 

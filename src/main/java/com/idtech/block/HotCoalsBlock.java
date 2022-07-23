@@ -1,6 +1,5 @@
 package com.idtech.block;
 
-import com.idtech.BaseMod;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -16,7 +15,7 @@ public class HotCoalsBlock extends Block {
     private static Properties properties = Properties.of(Material.STONE);
 
     //static instances for registration
-    public static Block INSTANCE = new HotCoalsBlock(properties).setRegistryName(BaseMod.MODID,"hotcoals");
+    public static Block INSTANCE = new HotCoalsBlock(properties).setRegistryName("hotcoals");
     public static Item ITEM = BlockUtils.createBlockItem(INSTANCE, CreativeModeTab.TAB_MISC);
 
     public HotCoalsBlock(Properties properties) {
