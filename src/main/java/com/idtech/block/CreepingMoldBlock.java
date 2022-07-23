@@ -32,7 +32,7 @@ public class CreepingMoldBlock extends Block {
         //find a random neighboring block position
         BlockPos blockPos = Utils.findNeightborBlock(pos);
 
-        if (blockPos != null) {
+        if (!serverLevel.isEmptyBlock(blockPos)) {
             //set the block at that position to this block
             serverLevel.setBlockAndUpdate(blockPos, this.defaultBlockState());
 
