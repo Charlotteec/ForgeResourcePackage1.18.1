@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "examplemod:gelpickaxe"
+    },
+    {
+      "item": "examplemod:gelaxe"
+    },
+    {
+      "item": "examplemod:gelsword"
+    }
+  ],
+  "result":
+  {
+    "item": "examplemod:gelpaxel",
+    "count": 1
+  }
+}
