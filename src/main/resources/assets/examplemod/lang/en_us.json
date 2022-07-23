@@ -10,6 +10,7 @@
   "item.examplemod.lightninghammer": "Lightning Hammer",
   "item.examplemod.bombarrow": "Bomb Arrow",
   "item.examplemod.customarrow": "Custom Arrow",
+  "item.examplemod.customsword": "Custom Sword",
   "item.examplemod.launchitem": "Launch Item",
   "item.examplemod.explosionitem": "Bomb",
   "item.examplemod.yummyfood": "Yummy Food",
@@ -44,8 +45,11 @@
   "block.examplemod.rubber": "Rubber Block",
   "block.examplemod.firecrystalblock": "Fire Crystal Ore",
   "block.examplemod.endoreblock": "End Ore Block",
+  "block.examplemod.lattemidblock": "Latte Dirt",
+  "block.examplemod.latteblock": "Latte Grass",
   "enchantment.examplemod.wither_touch": "Wither Touch Enchantment",
   "entity.examplemod.lattechicken": "Latte Chicken",
   "entity.examplemod.evilrabbit": "Evil Rabbit",
-  "biome.examplemod.basic_tester": "Basic Tester Biome"
+  "biome.examplemod.basic_tester": "Basic Tester Biome",
+  "itemGroup.examplemod": "Example Mod Category"
 }
