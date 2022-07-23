@@ -28,15 +28,15 @@ public class LatteChickenModel<T extends Entity> extends AgeableListModel<T> {
     private final ModelPart beak;
     private final ModelPart redThing;
 
-    public LatteChickenModel(ModelPart p_170490_) {
-        this.head = p_170490_.getChild("head");
-        this.beak = p_170490_.getChild("beak");
-        this.redThing = p_170490_.getChild("red_thing");
-        this.body = p_170490_.getChild("body");
-        this.rightLeg = p_170490_.getChild("right_leg");
-        this.leftLeg = p_170490_.getChild("left_leg");
-        this.rightWing = p_170490_.getChild("right_wing");
-        this.leftWing = p_170490_.getChild("left_wing");
+    public LatteChickenModel(ModelPart model) {
+        this.head = model.getChild("head");
+        this.beak = model.getChild("beak");
+        this.redThing = model.getChild("red_thing");
+        this.body = model.getChild("body");
+        this.rightLeg = model.getChild("right_leg");
+        this.leftLeg = model.getChild("left_leg");
+        this.rightWing = model.getChild("right_wing");
+        this.leftWing = model.getChild("left_wing");
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -63,16 +63,16 @@ public class LatteChickenModel<T extends Entity> extends AgeableListModel<T> {
         return ImmutableList.of(this.body, this.rightLeg, this.leftLeg, this.rightWing, this.leftWing);
     }
 
-    public void setupAnim(T p_102392_, float p_102393_, float p_102394_, float p_102395_, float p_102396_, float p_102397_) {
-        this.head.xRot = p_102397_ * ((float)Math.PI / 180F);
-        this.head.yRot = p_102396_ * ((float)Math.PI / 180F);
+    public void setupAnim(T arg, float f, float g, float h, float i, float j) {
+        this.head.xRot = j * ((float)Math.PI / 180F);
+        this.head.yRot = i * ((float)Math.PI / 180F);
         this.beak.xRot = this.head.xRot;
         this.beak.yRot = this.head.yRot;
         this.redThing.xRot = this.head.xRot;
         this.redThing.yRot = this.head.yRot;
-        this.rightLeg.xRot = Mth.cos(p_102393_ * 0.6662F) * 1.4F * p_102394_;
-        this.leftLeg.xRot = Mth.cos(p_102393_ * 0.6662F + (float)Math.PI) * 1.4F * p_102394_;
-        this.rightWing.zRot = p_102395_;
-        this.leftWing.zRot = -p_102395_;
+        this.rightLeg.xRot = Mth.cos(f * 0.6662F) * 1.4F * g;
+        this.leftLeg.xRot = Mth.cos(f * 0.6662F + (float)Math.PI) * 1.4F * g;
+        this.rightWing.zRot = h;
+        this.leftWing.zRot = -h;
     }
 }
