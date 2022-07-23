@@ -504,20 +504,27 @@ task generateBlockJSONs(type: BlockJSONTask){
 class LoottableGenTask extends DefaultTask {
     private String MODID = "${project.mod_id}"
 
-    def writeToFile(name, type) {
+    def writeToFile(String name, String type) {
         JsonBuilder build = new JsonBuilder()
-        build.addProperty("type", "minecraft:%s", type)
+        if(type != "ore") {
+            build.addProperty("type", "minecraft:%s", type)
+        } else{
+            build.addProperty("type", "minecraft:block")
+        }
         JsonBuilder pool = build.addArray("pools").addObject()
         pool.addProperty("rolls", 1.0)
         pool.addProperty("bonus_rolls", 0.0)
         JsonBuilder entry = pool.addArray("entries").addObject()
         entry.addProperty("type","minecraft:item")
 
-        if(type == "block") {
+        if(type == "block" || type == "ore") {
             entry.addProperty("name", "%s:%s", MODID, name)
             pool.addArray("conditions")
                     .addObject()
                     .addProperty("condition", "minecraft:survives_explosion")
+            if(type == "ore") {
+                name += "block"
+            }
             build.toJsonFile(
                     "${project.projectDir}/src/main/resources/data/" + MODID + "/loot_tables/blocks",
                     name
