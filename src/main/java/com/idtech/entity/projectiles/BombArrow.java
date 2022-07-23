@@ -12,8 +12,8 @@ import net.minecraft.world.phys.Vec3;
 
 public class BombArrow extends AbstractArrow {
 
-    public BombArrow(Level p_36866_, LivingEntity p_36867_) {
-        super(EntityType.ARROW, p_36867_, p_36866_);
+    public BombArrow(Level level, LivingEntity entity) {
+        super(EntityType.ARROW, entity, level);
     }
 
     //the item that gets picked up
