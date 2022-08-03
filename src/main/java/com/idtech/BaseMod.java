@@ -6,14 +6,17 @@ import com.idtech.entity.*;
 import com.idtech.item.*;
 
 //import com.idtech.world.WorldMod;
+import com.idtech.potion.PotionMod;
 import com.idtech.world.WorldMod;
 import net.minecraft.data.worldgen.biome.Biomes;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.Tiers;
+import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
@@ -189,6 +192,14 @@ public class BaseMod {
         @SubscribeEvent
         public static void registerEnchantments(final RegistryEvent.Register<Enchantment> event){
             EnchantmentMod.registerEnchantments(event);
+        }
+        @SubscribeEvent
+        public static void registerPotions(final RegistryEvent.Register<Potion> event){
+            PotionMod.registerPotions(event);
+        }
+        @SubscribeEvent
+        public static void registerEffects(final RegistryEvent.Register<MobEffect> event){
+            PotionMod.registerEffects(event);
         }
 
         @SubscribeEvent
