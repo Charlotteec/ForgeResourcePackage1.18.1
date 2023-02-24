@@ -1,17 +1,23 @@
 package com.idtech.entity;
 
+import com.idtech.BaseMod;
 import com.idtech.entity.projectiles.ExplosionProjectile;
 import com.idtech.entity.projectiles.LaunchProjectile;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class EntityMod {
+
+
 
     @SubscribeEvent
     public static void registerEntities(final RegistryEvent.Register<EntityType<?>> event){
@@ -19,6 +25,7 @@ public class EntityMod {
         event.getRegistry().register(LatteChicken.TYPE);
         event.getRegistry().register(EvilRabbit.TYPE);
         event.getRegistry().register(ZomboEntity.TYPE);
+        event.getRegistry().register(CustomDragon.TYPE);
 
         event.getRegistry().register(ExplosionProjectile.TYPE);
     }
@@ -29,6 +36,8 @@ public class EntityMod {
         event.getRegistry().register(EvilRabbit.EGG);
         event.getRegistry().register(ZomboEntity.EGG);
 
+        event.getRegistry().register(CustomDragon.EGG);
+
     }
     @SubscribeEvent
     public static void entityRenderers(final EntityRenderersEvent.RegisterRenderers event){
@@ -36,6 +45,7 @@ public class EntityMod {
         event.registerEntityRenderer(LatteChicken.TYPE, LatteChickenRenderFactory.INSTANCE);
         event.registerEntityRenderer(EvilRabbit.TYPE, EvilRabbitRenderFactory.INSTANCE);
         event.registerEntityRenderer(ZomboEntity.TYPE, ZomboRenderFactory.INSTANCE);
+        event.registerEntityRenderer(CustomDragon.TYPE, CustomDragonRenderFactory.INSTANCE);
 
         event.registerEntityRenderer(ExplosionProjectile.TYPE, (m) -> { return new ThrownItemRenderer<>(m, 1.0f, true);});
         event.registerEntityRenderer(LaunchProjectile.TYPE, (m) -> { return new ThrownItemRenderer<>(m, 1.0f, true);});
@@ -50,6 +60,8 @@ public class EntityMod {
         event.put(LatteChicken.TYPE, LatteChicken.createAttributes().build());
         event.put(EvilRabbit.TYPE, EvilRabbit.createAttributes().build());
         event.put(ZomboEntity.TYPE, ZomboEntity.createAttributes().build());
+        event.put(CustomDragon.TYPE, CustomDragon.createAttributes().build());
+
     }
 
 }

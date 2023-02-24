@@ -3,6 +3,7 @@ package com.idtech.entity;
 import com.idtech.BaseMod;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -16,16 +17,30 @@ import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.monster.ZombifiedPiglin;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.ForgeSpawnEggItem;
+import net.minecraftforge.registries.RegistryObject;
+
+import java.util.function.Supplier;
 
 public class GrumboBoy extends Zombie {
 
     //TYPE
     public static EntityType<GrumboBoy> TYPE = (EntityType<GrumboBoy>)
             EntityType.Builder.of(GrumboBoy::new, MobCategory.MONSTER).sized(0.6F, 1.95F).clientTrackingRange(8).build("grumboboy").setRegistryName(BaseMod.MODID, "grumboboy");
+
     //EGG
-    public static Item EGG = EntityUtils.buildEntitySpawnEgg(TYPE, 0xb00101, 0xacbf1f);
+    public static Supplier<? extends EntityType<? extends Mob>> supplierType = new Supplier<EntityType<? extends Mob>>() {
+        @Override
+        public EntityType<? extends Mob> get() {
+            return TYPE;
+        }
+    };
+    public static Item EGG = new ForgeSpawnEggItem(supplierType, 0xb00101, 0xacbf1f, new Item.Properties().tab(CreativeModeTab.TAB_MISC)).setRegistryName(TYPE.getRegistryName() + "_egg");
+
+//    public static Item EGG = EntityUtils.buildEntitySpawnEgg(TYPE, 0xb00101, 0xacbf1f);
 
     public GrumboBoy(EntityType type, Level level) {
         super(type, level);
