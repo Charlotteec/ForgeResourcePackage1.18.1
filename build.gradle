@@ -402,3 +402,98 @@ task generateLootTables(type: BlockstateGenTask) {
     group = 'forgegradle runs'
     description = 'A gradle task to generate loot tables for blocks to drop themselves.'
 }
+class RecipeJSONTask extends DefaultTask {
+    private String MODID = 'examplemod'
+
+    def shapedRecipeJSON(name){
+
+        StringBuilder builder = new StringBuilder();
+
+
+        builder.append("{\n");
+        builder.append("\"type\": \"minecraft:crafting_shaped\",\n");
+
+        builder.append("\"pattern\": [\n");
+        builder.append("\"xxx\",\n");
+        builder.append("\" y \",\n");
+        builder.append("\" y \"\n");
+        builder.append("],\n");
+        builder.append("\"key\": {\n");
+        builder.append("\"x\": {\n");
+        builder.append(" \"item\": \"examplemod:structuregel\"\n");
+        builder.append(" },\n");
+        builder.append("\"y\": {\n");
+        builder.append("\"item\": \"minecraft:stick\"\n");
+        builder.append("}\n");
+        builder.append("},\n");
+        builder.append("\"result\": {\n");
+        builder.append("\"item\": \"minecraft:diamond_pickaxe\"\n");
+        builder.append("}\n");
+        builder.append("}\n");
+
+
+        String s = builder.toString()
+
+        // create the folders if it does not exist.(otherwise it will throw exception)
+        File extraFolder = new File( "${project.projectDir}/src/main/resources/data/"+MODID+"/recipes")
+        if( !extraFolder.exists() ) {
+            extraFolder.mkdirs()
+        }
+        // create the file and write text to it.
+        new File("${project.projectDir}/src/main/resources/data/"+MODID+"/recipes/"+name+".json").text = s
+    }
+
+    def shapelessRecipeJSON(name){
+
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("{\n");
+        builder.append("\"type\": \"minecraft:crafting_shapeless\",\n");
+        builder.append("\"ingredients\": [\n");
+        builder.append("{");
+        builder.append( "\"item\": \"minecraft:coal\"\n");
+        builder.append("},\n");
+        builder.append("{\n");
+        builder.append( "\"item\": \"minecraft:torch\"\n");
+        builder.append("}\n");
+        builder.append("],\n");
+        builder.append("\"result\":\n");
+        builder.append("{\n");
+        builder.append("\"item\": \"minecraft:book\",\n");
+        builder.append("\"count\": 1\n");
+        builder.append("}\n");
+        builder.append("}\n");
+
+
+        String s = builder.toString()
+
+        // create the folders if it does not exist.(otherwise it will throw exception)
+        File extraFolder = new File( "${project.projectDir}/src/main/resources/data/"+MODID+"/recipes")
+        if( !extraFolder.exists() ) {
+            extraFolder.mkdirs()
+        }
+        // create the file and write text to it.
+        new File("${project.projectDir}/src/main/resources/data/"+MODID+"/recipes/"+name+".json").text = s
+    }
+
+    @TaskAction
+    def greet() {
+        String[] listy
+        new File("${project.projectDir}/src/main/resources/generate/recipes").eachLine { line ->
+            listy = line.split(" ")
+            if(listy[0].equals("shaped")){
+                shapedRecipeJSON(listy[1])
+            }
+            if(listy[0].equals("shapeless")){
+                shapelessRecipeJSON(listy[1])
+            }
+
+        }
+        // println greeting
+    }
+}
+
+task generateRecipeJSONs(type: RecipeJSONTask){
+    group = 'forgegradle runs'
+    description = 'A gradle task to generate all recipe jsons in the recipes file. Use shaped and shapeless to indicate the recipe type.'
+}
