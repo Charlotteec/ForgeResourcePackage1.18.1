@@ -2,6 +2,8 @@
     Instructors Note: This code is a fair bit complex, especially for group 2s. Consider
     copy/pasting the raycast code from the file for students.
 
+    KNOWN ISSUES:
+    - Laser staff does not affect ender dragon or end crystals
     TODOs:
     - Add effect for the laser, so players can see a 'beam' when firing
     - Random spread value for the raycast

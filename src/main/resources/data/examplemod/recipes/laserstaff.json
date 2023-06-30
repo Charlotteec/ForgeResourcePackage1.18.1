@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  z",
+    " y ",
+    "x  "
+  ],
+  "key": {
+    "x": {
+      "item": "minecraft:blaze_rod"
+    },
+    "y": {
+      "item": "minecraft:leather"
+    },
+    "z": {
+      "item": "minecraft:amethyst_shard"
+    }
+  },
+  "result": {
+    "item": "examplemod:laserstaff"
+  }
+}
+
