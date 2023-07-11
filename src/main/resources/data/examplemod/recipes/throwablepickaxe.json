@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:tnt"
+    },
+    {
+      "item": "minecraft:wooden_pickaxe"
+    }
+  ],
+  "result":
+  {
+    "item": "examplemod:throwablepickaxe",
+    "count": 1
+  }
+}
