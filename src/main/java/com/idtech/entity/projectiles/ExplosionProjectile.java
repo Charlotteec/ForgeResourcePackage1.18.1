@@ -44,7 +44,6 @@ public class ExplosionProjectile extends ThrowableItemProjectile implements Item
     protected void onHit(HitResult hitResult) {
         super.onHit(hitResult);
 
-
         if (!this.level.isClientSide) {
           //  this.level.entity(this, (byte)3);
 
@@ -53,4 +52,6 @@ public class ExplosionProjectile extends ThrowableItemProjectile implements Item
         }
         this.remove(RemovalReason.DISCARDED);
     }
+
+
 }

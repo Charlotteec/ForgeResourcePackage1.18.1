@@ -57,6 +57,8 @@ public class ItemMod {
         event.getRegistry().register(Big3DSword.INSTANCE);
         event.getRegistry().register(MaceItem.INSTANCE);
         event.getRegistry().register(SpikedShieldItem.INSTANCE);
+        event.getRegistry().register(LaserStaffItem.INSTANCE);
+        event.getRegistry().register(ThrowablePickaxe.INSTANCE);
 
         // FOOD
         event.getRegistry().register(yummyFoodItem);

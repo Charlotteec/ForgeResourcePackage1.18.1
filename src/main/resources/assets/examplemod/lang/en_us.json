@@ -47,5 +47,7 @@
   "entity.examplemod.lattechicken": "Latte Chicken",
   "entity.examplemod.evilrabbit": "Evil Rabbit",
   "biome.examplemod.basic_tester": "Basic Tester Biome",
-  "item.examplemod.xraygoggles": "X-Ray Goggles"
+  "item.examplemod.xraygoggles": "X-Ray Goggles",
+  "item.examplemod.laserstaff": "Staff of Laser",
+  "item.examplemod.throwablepickaxe": "Explosive Wooden Pickaxe"
 }
