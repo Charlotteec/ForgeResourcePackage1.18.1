@@ -49,5 +49,7 @@
   "biome.examplemod.basic_tester": "Basic Tester Biome",
   "item.examplemod.xraygoggles": "X-Ray Goggles",
   "item.examplemod.laserstaff": "Staff of Laser",
-  "item.examplemod.throwablepickaxe": "Explosive Wooden Pickaxe"
+  "item.examplemod.throwablepickaxe": "Explosive Wooden Pickaxe",
+  "entity.examplemod.zombiethor": "Revived Thor",
+  "item.examplemod.zombiethor_egg": "Revived Thor Spawn Egg"
 }

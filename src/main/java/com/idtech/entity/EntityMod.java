@@ -26,6 +26,7 @@ public class EntityMod {
         event.getRegistry().register(EvilRabbit.TYPE);
         event.getRegistry().register(ZomboEntity.TYPE);
         event.getRegistry().register(CustomDragon.TYPE);
+        event.getRegistry().register(ZombieThor.TYPE);
 
         event.getRegistry().register(ExplosionProjectile.TYPE);
     }
@@ -35,6 +36,7 @@ public class EntityMod {
         event.getRegistry().register(LatteChicken.EGG);
         event.getRegistry().register(EvilRabbit.EGG);
         event.getRegistry().register(ZomboEntity.EGG);
+        event.getRegistry().register(ZombieThor.EGG);
 
         event.getRegistry().register(CustomDragon.EGG);
 
@@ -46,6 +48,7 @@ public class EntityMod {
         event.registerEntityRenderer(EvilRabbit.TYPE, EvilRabbitRenderFactory.INSTANCE);
         event.registerEntityRenderer(ZomboEntity.TYPE, ZomboRenderFactory.INSTANCE);
         event.registerEntityRenderer(CustomDragon.TYPE, CustomDragonRenderFactory.INSTANCE);
+        event.registerEntityRenderer(ZombieThor.TYPE, ZombieThorRenderFactory.INSTANCE);
 
         event.registerEntityRenderer(ExplosionProjectile.TYPE, (m) -> { return new ThrownItemRenderer<>(m, 1.0f, true);});
         event.registerEntityRenderer(LaunchProjectile.TYPE, (m) -> { return new ThrownItemRenderer<>(m, 1.0f, true);});
@@ -61,7 +64,7 @@ public class EntityMod {
         event.put(EvilRabbit.TYPE, EvilRabbit.createAttributes().build());
         event.put(ZomboEntity.TYPE, ZomboEntity.createAttributes().build());
         event.put(CustomDragon.TYPE, CustomDragon.createAttributes().build());
-
+        event.put(ZombieThor.TYPE, ZombieThor.createAttributes().build());
     }
 
 }
