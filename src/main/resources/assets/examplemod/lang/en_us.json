@@ -51,5 +51,8 @@
   "item.examplemod.laserstaff": "Staff of Laser",
   "item.examplemod.throwablepickaxe": "Explosive Wooden Pickaxe",
   "entity.examplemod.zombiethor": "Revived Thor",
-  "item.examplemod.zombiethor_egg": "Revived Thor Spawn Egg"
+  "item.examplemod.zombiethor_egg": "Revived Thor Spawn Egg",
+  "entity.examplemod.snowfox": "Snow Fox",
+  "item.examplemod.snowfox_egg": "Snow Fox Egg",
+  "entity.examplemod.customfox": "Fox"
 }

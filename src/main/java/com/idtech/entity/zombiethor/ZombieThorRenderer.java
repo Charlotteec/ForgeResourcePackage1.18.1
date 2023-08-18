@@ -1,4 +1,4 @@
-package com.idtech.entity;
+package com.idtech.entity.zombiethor;
 
 import com.idtech.BaseMod;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

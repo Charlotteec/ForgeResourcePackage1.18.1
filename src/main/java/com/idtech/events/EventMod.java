@@ -1,39 +1,25 @@
-//package com.idtech.events;
-//
-//
-//import com.idtech.BaseMod;
-//import com.idtech.item.CustomWeapon;
-//import net.minecraft.world.effect.MobEffectInstance;
-//import net.minecraft.world.effect.MobEffects;
-//import net.minecraft.world.entity.EquipmentSlot;
-//import net.minecraft.world.item.ItemStack;
-//import net.minecraft.world.level.block.Blocks;
-//import net.minecraftforge.api.distmarker.Dist;
-//import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
-//import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-//import net.minecraftforge.event.world.BlockEvent;
-//import net.minecraftforge.eventbus.api.Event;
-//import net.minecraftforge.eventbus.api.SubscribeEvent;
-//import net.minecraftforge.fml.common.Mod;
-//
-//@Mod.EventBusSubscriber(modid = BaseMod.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
-//public class EventMod
-//{
-//
-//    @SubscribeEvent
-//    public static void onItemInHand(final LivingEquipmentChangeEvent event){
-//
-//        if(event.getTo().getItem() instanceof CustomWeapon){
-//            event.getEntityLiving().addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 999999999));
-//        }else{
-//            event.getEntityLiving().removeAllEffects();
-//        }
-//    }
-//
-//    //to add an event use @SubscribeEvent
-//    // to create the event object you can type Event (the net.minecraftforge.eventbus.api.Event) and right click to implementations
-//    // See the list of events and pick one (any one)
-//    // then based on that event do stuff. Pretty easy pretty cool.
-//
-//
-//}
+package com.idtech.events;
+
+import com.idtech.BaseMod;
+import com.idtech.Utils;
+import com.idtech.entity.transformingfox.CustomFox;
+import net.minecraft.world.entity.EntityType;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+
+@Mod.EventBusSubscriber(modid = BaseMod.MODID)
+public class EventMod {
+    /* Replace all foxes with custom foxes which are identical to normal foxes,
+    except they can transform into snow fox with overridden method */
+    @SubscribeEvent
+    public static void transformingFox(EntityJoinWorldEvent event) {
+        if (event.getEntity().getType() == EntityType.FOX) {
+            CustomFox newFox = new CustomFox(CustomFox.TYPE, event.getWorld());
+            Utils.spawnEntity(event.getWorld(), newFox, event.getEntity().getOnPos().above());
+            /* Send old mobs 500 blocks down into the void (hopefully) because I couldn't figure
+            how to make them disappear otherwise without the death animation (setRemoved() seems buggy) */
+            event.getEntity().setPos(event.getEntity().getX(), event.getEntity().getY() - 500.0, event.getEntity().getZ());
+        }
+    }
+}
