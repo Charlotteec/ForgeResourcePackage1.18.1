@@ -8,6 +8,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -56,5 +57,16 @@ public class LightningHammerItem extends Item{
             //return a fail
             return InteractionResultHolder.fail(itemstack);
         }
+    }
+
+    /** For ZombieThor - new method to allow summoning lightning at
+     * a target entity instead of at cursor position for Thor */
+    public InteractionResultHolder<ItemStack> thorUse(Level level, LivingEntity thorIn, LivingEntity target, InteractionHand handIn) {
+        ItemStack itemstack = thorIn.getItemInHand(handIn);
+        BlockPos location = target.blockPosition();
+        Utils.createExplosion(level, location, 0.5f);
+        Utils.strikeLightning(level, location);
+
+        return InteractionResultHolder.pass(itemstack);
     }
 }

@@ -3,11 +3,15 @@ package com.idtech;
 import com.idtech.block.*;
 import com.idtech.enchantment.EnchantmentMod;
 import com.idtech.entity.*;
+import com.idtech.entity.customslime.BlueSlimeModel;
+import com.idtech.entity.transformingfox.CakeFoxModel;
 import com.idtech.item.*;
 
 //import com.idtech.world.WorldMod;
+import com.idtech.particle.ParticleMod;
 import com.idtech.potion.PotionMod;
 import com.idtech.world.WorldMod;
+import net.minecraft.core.particles.ParticleType;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
@@ -163,6 +167,14 @@ public class BaseMod {
 
         }
 
+        /** For custom slime - registers new particle */
+        /* Kaupenjoe uses the newer DeferredRegister to register
+        but I'll stick to what iD Tech uses, intercepting the RegistryEvent */
+        @SubscribeEvent
+        public static void registerParticles(final RegistryEvent.Register<ParticleType<?>> event) {
+            ParticleMod.registerParticles(event);
+        }
+
         @SubscribeEvent
         public static void entityRenderers(final EntityRenderersEvent.RegisterRenderers event){
             EntityMod.entityRenderers(event);
@@ -190,7 +202,11 @@ public class BaseMod {
         {
             event.registerLayerDefinition(EvilRabbitModel.LAYER_LOCATION, EvilRabbitModel::createBodyLayer);
             event.registerLayerDefinition(CustomDragonModel.LAYER_LOCATION, CustomDragonModel::createBodyLayer);
+            event.registerLayerDefinition(CakeFoxModel.LAYER_LOCATION, CakeFoxModel::createBodyLayer);
 
+            /** For custom slime - register both model layers */
+            event.registerLayerDefinition(BlueSlimeModel.INNER_LAYER_LOCATION, BlueSlimeModel::createInnerBodyLayer);
+            event.registerLayerDefinition(BlueSlimeModel.OUTER_LAYER_LOCATION, BlueSlimeModel::createOuterBodyLayer);
         }
 
     }

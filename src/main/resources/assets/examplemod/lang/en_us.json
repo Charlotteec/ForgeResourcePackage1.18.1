@@ -13,6 +13,7 @@
   "item.examplemod.launchitem": "Launch Item",
   "item.examplemod.explosionitem": "Bomb",
   "item.examplemod.yummyfood": "Yummy Food",
+  "item.examplemod.zombo_egg": "Zombo Spawn Egg",
   "item.examplemod.lattechicken_egg": "Latte Chicken Egg",
   "item.examplemod.evilrabbit_egg": "Evil Rabbit Spawn Egg",
   "item.examplemod.grumboboy_egg": "Grumbo Boy Egg",
@@ -35,6 +36,13 @@
   "item.examplemod.firecrystalarrow": "Fire Crystal Arrow",
   "item.examplemod.spikedshield": "Spiked Shield",
   "item.examplemod.endore": "End Ore",
+  "item.examplemod.xraygoggles": "X-Ray Goggles",
+  "item.examplemod.laserstaff": "Staff of Laser",
+  "item.examplemod.throwablepickaxe": "Explosive Wooden Pickaxe",
+  "item.examplemod.zombiethor_egg": "Zombie Thor Spawn Egg",
+  "item.examplemod.cakefox_egg": "Snow Fox Egg",
+  "item.examplemod.blueslime_egg": "Blue Slime Spawn Egg",
+
   "block.examplemod.castlewall": "Castle Wall",
   "block.examplemod.geloreblock": "Gel Ore Block",
   "block.examplemod.tntcannon": "TNT Cannon",
@@ -43,11 +51,17 @@
   "block.examplemod.rubber": "Rubber Block",
   "block.examplemod.firecrystalblock": "Fire Crystal Ore",
   "block.examplemod.endoreblock": "End Ore Block",
-  "enchantment.examplemod.wither_touch": "Wither Touch Enchantment",
+
+  "entity.examplemod.zombo": "Zombo",
+  "entity.examxplemod.grumboboy": "Grumbo",
   "entity.examplemod.lattechicken": "Latte Chicken",
   "entity.examplemod.evilrabbit": "Evil Rabbit",
-  "biome.examplemod.basic_tester": "Basic Tester Biome",
-  "item.examplemod.xraygoggles": "X-Ray Goggles",
-  "item.examplemod.laserstaff": "Staff of Laser",
-  "item.examplemod.throwablepickaxe": "Explosive Wooden Pickaxe"
+  "entity.examplemod.zombiethor": "Zombie Thor",
+  "entity.examplemod.cakefox": "Snow Fox",
+  "entity.examplemod.customfox": "Fox",
+  "entity.examplemod.blueslime": "Blue Slime",
+
+  "enchantment.examplemod.wither_touch": "Wither Touch Enchantment",
+
+  "biome.examplemod.basic_tester": "Basic Tester Biome"
 }
