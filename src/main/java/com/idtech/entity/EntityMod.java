@@ -1,5 +1,7 @@
 package com.idtech.entity;
 
+import com.idtech.entity.customslime.BlueSlimeEntity;
+import com.idtech.entity.customslime.BlueSlimeRenderer;
 import com.idtech.entity.projectiles.ExplosionProjectile;
 import com.idtech.entity.projectiles.LaunchProjectile;
 import com.idtech.entity.transformingfox.CakeFox;
@@ -30,6 +32,7 @@ public class EntityMod {
         event.getRegistry().register(ZombieThor.TYPE);
         event.getRegistry().register(CustomFox.TYPE);
         event.getRegistry().register(CakeFox.TYPE);
+        event.getRegistry().register(BlueSlimeEntity.TYPE);
 
         event.getRegistry().register(ExplosionProjectile.TYPE);
     }
@@ -41,6 +44,7 @@ public class EntityMod {
         event.getRegistry().register(ZomboEntity.EGG);
         event.getRegistry().register(ZombieThor.EGG);
         event.getRegistry().register(CakeFox.EGG);
+        event.getRegistry().register(BlueSlimeEntity.EGG);
 
         event.getRegistry().register(CustomDragon.EGG);
 
@@ -55,6 +59,9 @@ public class EntityMod {
         event.registerEntityRenderer(ZombieThor.TYPE, ZombieThorRenderFactory.INSTANCE);
         event.registerEntityRenderer(CustomFox.TYPE, CustomFoxRenderFactory.INSTANCE);
         event.registerEntityRenderer(CakeFox.TYPE, CakeFoxRenderFactory.INSTANCE);
+        /* Use ::new instead of render factory for custom slime
+        to avoid issues with casting in render factory */
+        event.registerEntityRenderer(BlueSlimeEntity.TYPE, BlueSlimeRenderer::new);
 
         event.registerEntityRenderer(ExplosionProjectile.TYPE, (m) -> { return new ThrownItemRenderer<>(m, 1.0f, true);});
         event.registerEntityRenderer(LaunchProjectile.TYPE, (m) -> { return new ThrownItemRenderer<>(m, 1.0f, true);});
@@ -73,6 +80,7 @@ public class EntityMod {
         event.put(ZombieThor.TYPE, ZombieThor.createAttributes().build());
         event.put(CustomFox.TYPE, CustomFox.createAttributes().build());
         event.put(CakeFox.TYPE, CakeFox.createAttributes().build());
+        event.put(BlueSlimeEntity.TYPE, BlueSlimeEntity.createAttributes().build());
     }
 
 }

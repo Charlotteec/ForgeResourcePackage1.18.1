@@ -59,8 +59,8 @@ public class LightningHammerItem extends Item{
         }
     }
 
-    /** For ZombieThor mob */
-    // new method to allow summoning lightning at a target entity instead of at cursor position for Thor
+    /** For ZombieThor - new method to allow summoning lightning at
+     * a target entity instead of at cursor position for Thor */
     public InteractionResultHolder<ItemStack> thorUse(Level level, LivingEntity thorIn, LivingEntity target, InteractionHand handIn) {
         ItemStack itemstack = thorIn.getItemInHand(handIn);
         BlockPos location = target.blockPosition();

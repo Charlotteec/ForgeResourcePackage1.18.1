@@ -28,7 +28,7 @@ import java.util.UUID;
 * copy in any of this code past the constructor since the rest makes taming work. */
 public class CakeFox extends Wolf {
     public static EntityType<CakeFox> TYPE = (EntityType<CakeFox>)
-            EntityType.Builder.of(CakeFox::new, MobCategory.AMBIENT).sized(0.6F, 1.95F).clientTrackingRange(8).build("snowfox").setRegistryName(BaseMod.MODID, "snowfox");
+            EntityType.Builder.of(CakeFox::new, MobCategory.AMBIENT).sized(0.6F, 1.95F).clientTrackingRange(8).build("cakefox").setRegistryName(BaseMod.MODID, "cakefox");
     public static Item EGG = EntityUtils.buildEntitySpawnEgg(TYPE, 0xfef9f8 , 0x383737);
 
     public CakeFox(EntityType<? extends Wolf> entityIn, Level levelIn) {
